@@ -1,0 +1,964 @@
+---
+title: "Building an MLOps strategy from the ground up"
+subtitle: "Crunch 2022"
+author: "Isabel Zimmerman, RStudio, PBC"
+date: "September 20, 2022"
+format:
+  revealjs: 
+    slide-number: true
+    multiplex: true
+    preview-links: auto
+    theme: [simple, custom.scss]
+    multiplex: true
+---
+
+# from the ground up
+
+::: incremental
+-   what is MLOps anyway (and how can I start)? 🐶
+-   what do I need to keep in mind for tooling? 🔨
+:::
+
+# 
+
+<center>🐶</center>
+
+::: notes
+hi im isabel
+
+started my career as a software engineer/data scientist, working on operationalizing models, mostly in kubernetes environments. if you know anything about k8s, they can be a little frustrating. so, giving my brain a break, i started training my little dog named toast to do tricks.
+
+when first taught my dog to sit, stood in front of him...
+
+go for a walk, side
+
+sit sit sit!!!! doesn't sit
+
+now, as a data scientist, i realized i had not trained my dog very well. he only knew sit when i was standing in front of him.
+
+back home in my local environment, side
+
+sit sit sit!! huh, then sits
+
+toast taught me a hard lesson. even if youre training for the right outcome, sitting, being out of my house brought a new set of challenges, and he behaved differently
+:::
+
+</center>
+
+# 
+
+::: r-fit-text
+if you develop models...
+
+you can operationalize them
+:::
+
+::: notes
+but, this is not a dog training conference--so, i'll tell you this.
+:::
+
+# 
+
+::: r-fit-text
+if you develop models...
+
+you *should* operationalize them\*
+:::
+
+. . .
+
+\*well, some of them
+
+::: notes
+in fact, i'll go so far as to say this
+:::
+
+# 
+
+<center>
+
+    information -> 🐶 -> actions
+
+::: notes
+i gave my dog information, telling him to sit, or some kind of input. at home there was a great response, reproducible responses! but out in the wilderness of my suburban neighborhood, when I gave my dog instructions, it didn't always look the way I expected it to. working together with my dog to create actions--greeting the neighbor by sitting in a polite manner--looked different and felt different in different environments
+:::
+
+# 
+
+    information -> model -> actions
+
+</center>
+
+::: notes
+models work the same way. when you're training and tuning a model, data scientists often live in a cozy, familiar environment. but when exposed to the messiness of real data, and the uncertainty of world in general, they may act differently.
+
+business value of models often comes from operationalizing a model--how that model works in the wild..
+
+but, maybe we're getting ahead of ourselves here
+:::
+
+# What is MLOps?
+
+::: notes
+MLOps, or machine learning operations is where DevOps (development operations) and machine learning combine.
+:::
+
+# MLOps is...
+
+. . .
+
+a set of <u>practices</u> to *deploy* and *maintain* machine learning models in production **reliably** and **efficiently**
+
+::: notes
+and these practices can be HARD. i said i started with kubernetes + models. after a while where i STRUGGLED with the tools at hand, i felt that, as a data scientist, the tools were not built for me. they were built for a software engineer that had pretty deep knowledge of infrastructure--and i needed to productionalize models, but i didn't want to have to be a cloud architect as well a data scientist.
+
+so i changed career paths to build new tools designed specifically for data scientists to deploy models. my current role is to develop an open source package called vetiver, which is an mlops framework to help data scientists do model operations better in R and Python
+:::
+
+# 
+
+|R                                                        | Python                                                 |
+|---------------------------------------------------------|--------------------------------------------------------|
+| `vetiver_model()` `new_vetiver_model()`                 | `VetiverModel()`                                       |
+| `vetiver_pin_write()` `vetiver_pin_read()`              | `vetiver_pin_write()` `VetiverModel.from_pin()`        |
+| `vetiver_api()` `vetiver_pr_post()`                     | `VetiverAPI()` `VetiverAPI.vetiver_post()`             |
+| `vetiver_write_plumber()`                               | `write_app()`                                          |
+| `vetiver_compute_metrics()`                             | `compute_metrics()`                                    |
+| `vetiver_pin_metrics()`                                 | `pin_metrics()`                                        |
+
+
+# 
+
+![](images/ml_ops_cycle_no_ops.png)
+
+::: notes
+a basic workflow
+:::
+
+# {auto-animate=true}
+
+```{python}
+#| echo: true
+import pandas as pd
+raw = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv')
+df = raw[["like_count", "funny", "show_product_quickly", "patriotic", \
+    "celebrity", "danger", "animals"]].dropna()
+```
+
+# {auto-animate=true} 
+```{python}
+#| echo: true
+import pandas as pd
+raw = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv')
+df = raw[["like_count", "funny", "show_product_quickly", "patriotic", \
+    "celebrity", "danger", "animals"]].dropna()
+print(df)
+```
+
+# {auto-animate=true}
+
+```{python}
+#| echo: true
+import pandas as pd
+raw = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv')
+df = raw[["like_count", "funny", "show_product_quickly", "patriotic", \
+    "celebrity", "danger", "animals"]].dropna()
+
+from sklearn import model_selection, preprocessing, pipeline, ensemble
+X_train, X_test, y_train, y_test = model_selection.train_test_split(
+    df.drop(columns = ['like_count']),
+    df['like_count'],
+    test_size=0.2
+)
+```
+
+# {auto-animate=true}
+
+```{python}
+#| echo: true
+import pandas as pd
+raw = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv')
+df = raw[["like_count", "funny", "show_product_quickly", "patriotic", \
+    "celebrity", "danger", "animals"]].dropna()
+
+from sklearn import model_selection, preprocessing, pipeline, ensemble
+X_train, X_test, y_train, y_test = model_selection.train_test_split(
+    df.drop(columns = ['like_count']),
+    df['like_count'],
+    test_size=0.2
+)
+
+le = preprocessing.OrdinalEncoder().fit(X_train)
+rf = ensemble.RandomForestRegressor().fit(le.transform(X_train), y_train)
+```
+
+# {auto-animate=true}
+
+```{python}
+#| echo: true
+import pandas as pd
+raw = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv')
+df = raw[["like_count", "funny", "show_product_quickly", "patriotic", \
+    "celebrity", "danger", "animals"]].dropna()
+
+from sklearn import model_selection, preprocessing, pipeline, ensemble
+X_train, X_test, y_train, y_test = model_selection.train_test_split(
+    df.drop(columns = ['like_count']),
+    df['like_count'],
+    test_size=0.2
+)
+
+oe = preprocessing.OrdinalEncoder().fit(X_train)
+rf = ensemble.RandomForestRegressor().fit(oe.transform(X_train), y_train)
+
+rf_pipe = pipeline.Pipeline([('ordinal_encoder',oe), ('random_forest', rf)])
+```
+
+# 
+
+![](images/ml_ops_cycle.png)
+
+::: notes
+vetiver focuses on 3 practices
+:::
+
+## MLOps is...
+
+## MLOps is... **versioning**
+
+`model`
+
+. . .
+
+`model_final`
+
+. . .
+
+`model_final_v2`
+
+. . .
+
+`model_final_v2_ACTUALLY`
+
+::: notes
+lacks context not scalable
+
+versioning a model usually includes storing the model object, a hash for a robust and scalable version, and some metadata
+:::
+
+## MLOps is... **versioning**
+
+managing change in models
+
+::: notes
+across time (model_final, model_final_2). this is also important if you have different implementations-- for example, staging and production.
+
+really, anytime you have multiple models saved, some sort of versioning will help organize your models, making them easier to organize for yourself, share with your team members, and manage later on.
+:::
+
+#
+
+``` python
+import pins
+
+model_board = pins.board_temp(
+    allow_pickle_read = True)
+```
+
+::: {.notes}
+pins is a project my team built, also in R
+:::
+
+#
+
+``` python
+import pins
+
+model_board = pins.board_local(
+    allow_pickle_read = True)
+```
+
+#
+
+``` python
+import pins
+
+model_board = pins.board_s3(
+    allow_pickle_read = True)
+```
+
+::: {.notes}
+amazon web services
+:::
+
+#
+
+``` python
+import pins
+
+model_board = pins.board_gcs(
+    allow_pickle_read = True)
+```
+
+::: {.notes}
+google cloud storage
+:::
+
+#
+
+``` python
+import pins
+
+model_board = pins.board_azure(
+    allow_pickle_read = True)
+```
+
+::: {.notes}
+microsoft azure blob storage
+
+now, these will require a few more arguments for credentials
+:::
+
+# {auto-animate=true}
+
+```{python}
+#| echo: true
+import pins
+
+model_board = pins.board_temp(
+    allow_pickle_read = True)
+
+from vetiver import VetiverModel, vetiver_pin_write
+
+v = VetiverModel(rf_pipe, "ads", ptype_data = X_train)
+```
+
+::: {.notes}
+deployable model object
+
+using the model object-- however youre getting data can stay the same! however you are modeling can stay the same!
+
+data prototype
+- a common failure point is deployed data looks different
+:::
+
+# {auto-animate=true}
+
+::: {.panel-tabset}
+
+### Python
+```{python}
+#| echo: true
+import pins
+
+model_board = pins.board_temp(
+    allow_pickle_read = True)
+
+from vetiver import VetiverModel, vetiver_pin_write
+
+v = VetiverModel(rf_pipe, "ads", ptype_data = X_train)
+
+vetiver_pin_write(model_board, v)
+```
+
+### R
+
+``` r
+library(vetiver)
+library(pins)
+
+model_board <- board_temp()
+
+v <- vetiver_model(model, "ads")
+
+model_board %>% 
+  vetiver_pin_write(v)
+```
+:::
+
+::: {.notes}
+writing data to the pin
+:::
+
+# {auto-animate=true}
+
+```{python}
+#| echo: true
+import pins
+
+model_board = pins.board_temp(
+    allow_pickle_read = True)
+
+from vetiver import VetiverModel, vetiver_pin_write
+
+v = VetiverModel(rf_pipe, "ads", ptype_data = X_train)
+
+vetiver_pin_write(model_board, v)
+
+model_board.pin_meta("ads")
+```
+
+
+## MLOps is... **versioning**
+
+where are these models going?
+
+. . .
+
+- pin boards
+- model registries
+
+::: notes
+youve probably heard of the statistic that 85 % of models don't make it to production, that is, they don't get deployed, and some people try to say that this is a reason why we need MLOps tools. you might update a model tens of times before it is truly ready for production.
+
+while we do need MLOps tools, the fact that most models don't make it to production might be a good thing (in a cost saving sense as well as model quality sense).
+
+model is versioned, but still on a local machine where whould it go to be easily accessed to many people?
+
+you can store them somewhere...maybe a model registry! this is a centralized location for many models to be stored. however, model registries are storing the model, not running the model. you still need to download them or do some sort of operation to actually make a prediction, which is a pretty clunky workflow
+
+which leads us to...
+:::
+
+
+## MLOps is... **deploying**
+
+## MLOps is... **deploying**
+
+putting a model in production
+
+. . .
+
+*uh, what's production?*
+
+::: notes
+deploying means many different things. in general, we say that deploying a model is putting a model in production
+
+uh, what is production?
+
+production can mean a lot of different things. in fact, you might have deployed a model without even knowing it
+:::
+
+## MLOps is... **deploying**
+
+putting a model ~~in production~~ somewhere that is not on your local laptop
+
+::: notes
+the IDEA of data science workflows are directly opposite of software engineering best practices. where software engineers are interested in robust applications and strong testing and absolute certainty that something will behave as expected, data science requires agility and experimental behavior
+:::
+
+## MLOps is... **deploying**
+
+putting a model ~~in production~~ somewhere that is not on your local laptop
+
+::: {.incremental}
+- REST APIs
+  - run on a local laptop
+  - run inside a container, such as Docker
+:::
+
+::: notes
+
+
+REST APIs (Representational state transfer application programming interface) are uniform interface between physically separate components. standardized way for machines to communicate to each other.
+
+&&&
+
+tools like vetiver use pre-set interfaces such as open api specifications. these standards for how software programs communicate with each other help developers have to write less code to make different software programs work together seamlessly.
+
+REST APIs are useful since they are endpoints that can be hosted in different computational environments, independent of the application
+
+this makes the software engineering part of me very very happy, since decoupling the 
+
+&&&
+
+:::
+
+#
+
+```{python}
+#| echo: true
+#| eval: false
+from vetiver import VetiverModel, VetiverAPI, vetiver_pin_write
+v = VetiverModel(rf_pipe, "ads", ptype_data = X_train) 
+
+VetiverAPI(v).run()
+```
+
+::: {.notes}
+flexible tool-- creating a FastAPI endpoint and adding in things to make it model aware
+:::
+#
+
+![](images/local_general.png)
+
+:::{.notes}
+start up
+:::
+
+#
+
+![](images/local_predict.png)
+
+#
+
+![](images/local.gif)
+
+:::{.notes}
+self documenting
+
+health endpoint, make sure everything is online
+:::
+
+#
+
+``` python
+vetiver.deploy_rsconnect(
+    connect_server = connect_server, 
+    board = model_board, 
+    pin_name = "ads", 
+    version = "59869")
+```
+
+#
+
+![](images/local_general.png)
+
+#
+
+![](images/colorado_general.png)
+
+#
+
+![](images/local_predict.png)
+
+#
+
+![](images/colorado_predict.png)
+
+::: {.notes}
+besides me thinking this is kinda funny, this actually brings us to another great point
+
+things break pretty quickly when your development cycle acts or even feels differently than your production environment--this is a nod to the reproducibility of APIs, we wanted the APIs to look the same, even if they're hosted in different locations
+:::
+
+
+```python
+vetiver.write_app(board=board, pin_name="ads")
+```
+
+:::{.notes}
+will create a file named app.py with all the information needed
+
+just a python script. it will run out of the box (pending you give it the right credentials)
+
+for some cloud providers, this might be enough
+:::
+
+
+#
+
+```python
+vetiver.write_app(board=board, pin_name="ads")
+vetiver.write_docker(app_file="app.py")
+```
+
+::: {.notes}
+maybe you're a docker fan?
+
+just a python script. it will run out of the box (pending you give it the right credentials)
+
+docker is pretty well received by cloud providers, bring your own container philosophy
+
+currently working on explicit workflows for different cloud providers
+
+also working on specialized docker containers (AWS Lambda)
+:::
+
+## MLOps is... **monitoring**
+
+::: {.notes}
+model is deployed
+
+a data scientist's work is not done!
+
+continuous monitoring-- continue to track how the model
+:::
+
+## MLOps is... **monitoring**
+
+![](images/drift.png)
+
+::: {.notes}
+model drift when your model's performance metrics start decaying. this is SO IMPORTANT TO TRACK. 
+
+software engineering--when things went wrong, ERROR
+
+models fail silently! and they can still run with no error, even if your accuracy is zero percent--
+
+if you are not monitoring your model in some way, you are oblivious to decay.
+:::
+
+## MLOps is... **monitoring**
+
+how do we use time?
+
+##
+
+```python
+import vetiver
+from sklearn import metrics
+from datetime import timedelta
+
+metric_set = [metrics.mean_absolute_error, metrics.mean_squared_error]
+
+metrics = vetiver.compute_metrics(
+    new_data, 
+    "date", 
+    timedelta(weeks = 1), 
+    metric_set, 
+    "like_count", 
+    "preds"
+    )
+```
+
+::: {.notes}
+- have new data (saving from infra)
+- contains things like date the prediction was made, the predicted value, and the actual value
+
+give the function this data, but also a few other things:
+- amount of time to aggregate over
+- set of metrics to track
+:::
+
+##
+
+```python
+metrics = vetiver.compute_metrics(
+    new_data, 
+    "date", 
+    timedelta(weeks = 1), 
+    metric_set, 
+    "like_count", 
+    "preds"
+    )
+
+vetiver.pin_metrics(
+    model_board, 
+    metrics, 
+    "ads_metrics", 
+    overwrite = True
+    )
+```
+
+::: {.notes}
+common failure is storing data that might overlap in date
+
+once computed, you can pin the dataframe of metrics to keep a log of your model performance! give it a fancy name, and you can also specify if you would like to overwrite any overlapping dates from the last time you computed/pinned metrics.
+
+:::
+
+##
+
+```python
+vetiver.pin_metrics(
+    model_board, 
+    metrics, 
+    "ads_metrics", 
+    overwrite = True
+    )
+
+m = vetiver.plot_metrics(metrics)
+```
+
+
+##
+
+```python
+vetiver.pin_metrics(
+    model_board, 
+    metrics, 
+    "ads_metrics", 
+    overwrite = True
+    )
+
+m = vetiver.plot_metrics(metrics)
+m.update_yaxes(matches=None)
+m.show()
+```
+
+::: {.notes}
+flexible tool-- will create plot, you can customize (ie, rescale the y-axis)
+:::
+
+##
+
+```{python}
+from sklearn import metrics
+from datetime import timedelta
+import vetiver
+
+metric_set = [metrics.mean_absolute_error, metrics.mean_squared_error]
+td = timedelta(weeks = 1)
+
+monitored_data = pd.read_csv("demo/monitored_data.csv").drop(columns = 'Unnamed: 0')
+
+m = vetiver.compute_metrics(data = monitored_data, 
+                    date_var="date", 
+                    period = td, 
+                    metric_set=metric_set, 
+                    truth="ridership", 
+                    estimate="preds")
+
+monitor_plot = vetiver.plot_metrics(m)
+monitor_plot.update_yaxes(matches=None)
+monitor_plot.show()
+```
+
+## MLOps is... **monitoring**
+
+when things go wrong:
+
+::: {.incremental}
+- retrain, retrain, retrain
+- try a new model type
+- remember to version!
+:::
+
+::: {.notes}
+if performance is declining, 
+- retraining model? 
+- new model type altogether?
+
+if you are using model versioning, it becomes easier to roll back to the latest version
+:::
+
+## MLOps is... **thinking about making good models**
+
+:::{.notes}
+not only do we want our models to be GOOD in a statistical and business sense, but also GOOD in an ethical sense
+
+there's no surefire way to avoid bias, but being thoughtful is a good place to start
+
+actually, my dad has a quote that he always tells me--"if you haven't written it down, you haven't thought it out"
+
+this is a space my team is actively investing time into to make sure we can integrate and support any effort to create a tool that helps data scientist make sure the models they deploy have given a holistic view to their model
+:::
+
+## MLOps is... **thinking about making good models**
+
+``` python
+vetiver.vetiver_pin_write(board, v)
+```
+
+. . .
+
+```
+Model Cards provide a framework for transparent, responsible reporting. 
+ Use the vetiver `.qmd` Quarto template as a place to start, 
+ with vetiver.model_card()
+```
+
+::: {.notes}
+created by people who left google
+
+documents
+:::
+
+## MLOps is... **thinking about making good models** 
+
+``` python
+vetiver.model_card()
+```
+
+::: {.notes}
+partially automated (pieces that we can), uses Quarto, a platform for technical documentation and communication (actually, fun fact, my slides are also made in quarto)
+
+looks at a model quantitatively and also qualitativvely
+:::
+##
+
+![](images/title.png)
+
+##
+
+![](images/quant.png)
+
+##
+
+![](images/ethics.png)
+
+::: {.notes}
+
+my model doesn't have any ethical challenges, it's predicting youtube likes
+
+- However, we strongly advise that instead of deleting any such section because you have incomplete or imprecise information, you note your own process and considerations. 
+- Also, consider the possibility of gathering feedback from those impacted by the machine learning system, especially those with marginalized identities.
+:::
+
+## MLOps is... **thinking about making good models** 
+
+From Mitchell et al. (2019):
+
+::: r-fit-text
+> _Therefore the usefulness and accuracy of a model card relies on the integrity of the creator(s) of the card itself._
+:::
+
+::: {.notes}
+The process of documenting the extent and limits of a machine learning system is part of transparent, responsible reporting. 
+
+A model card framework such as this is a helpful tool and some parts of a model card can be automated, but ultimately the extent of its value depends on you. 
+:::
+
+# from the ground up
+
+-   what is MLOps anyway (and how can I start)? 🐶 ✅
+-   what do I need to keep in mind for tooling? 🔨
+
+::: {.notes}
+from this, hopefully you are fairly oriented to what MLOps is, and what practices are helping you deploy models!
+:::
+
+# 
+
+<center>🔨</center>
+
+## Tooling tips...
+
+![](https://46eybw2v1nh52oe80d3bi91u-wpengine.netdna-ssl.com/wp-content/uploads/2021/12/Data-and-AI-Landscape-2021-v3-small-1024x530.jpg){fig-align="center"}
+
+::: {.notes}
+the landscape is vast! choosing the right tool is important, and can be difficult. there's no one size fits all method for MLOps.
+
+from a tool builders perspective, there's a lot that i want to have in my project. i have a list of features i want to add thats larger than i am, but i have some core principles that i keep in mind when
+
+i make data science tools, but i also have spent a lot of time looking at tools, and here's a few of my takeaways
+:::
+
+## Tooling tips...
+
+you (and your team!) are unique!
+
+::: {.notes}
+before you dive into tools, its really important to recognize that teams are at different points of their MLOps journey. not every team needs a huuuuge pipeline to move data to some multicloud environment. maybe a big win for your team is to even start versioning your models, even if its just locally.
+:::
+
+## Tooling tips...
+
+-   composable
+    -   in different environments
+    -   with other tools
+
+::: notes
+one thing i think about a lot is how does the software i build work in different scenarios, because each team has unique needs. not only do i want this software to work in different environments--say, in different clouds. not only do i want to make sure that my open source software has first class support for the products directly builds, but I want to make sure users can easily make an `app.py` or `Dockerfile` to bring to a public or private cloud
+
+not only different environments, but i want my tools to work well with other tools. if you're familiar with python, you can think about how pandas creates a dataframe to clean data and scikit learn uses the same dataframe data structures to model the data. the data science landscape in python would look very different if these two tools did not have pieces that worked as a natural extension of each other. in the same way, you can use vetiver alone to do the tasks of versioning, deploying, and monitoring, but also add in other softwares if you would like to do more.
+:::
+
+## Tooling tips...
+
+-   composable
+-   reproducible
+    - open source 💖
+
+::: {.notes}
+i can point to about 1000 different ways reproduciblility is important in machine learning, especially MLOps.
+
+however, i really want to highlight the value of open source tools here.
+
+we all saw that landscape a few slides ago, there's a lot of options out there! MLOps is a happening field right now
+
+from a business perspective: open source is foreeeverrrr
+- free!
+- outlasts a company's lifetime
+- outlasts your company's subscription
+
+from a human perspective: open source is for everyonee
+- free!
+- equitable
+if you have an internet connection, you can build the skills, be part of an amazing technical community
+
+:::
+
+## Tooling tips...
+
+-   composable
+-   reproducible
+-   ergonomic
+
+![](http://worrydream.com/ABriefRantOnTheFutureOfInteractionDesign/Images/Tool1.png){fig-align="center"}
+
+::: notes
+your NEED is that you are ready to implement some MLOps practices
+
+your tool help you do that by some magic of engineering
+
+but, we are humans, not robots! we need a tool that feels natural to help us complete the task
+:::
+
+## Tooling tips...
+
+-   composable
+-   reproducible
+-   ergonomic
+
+![](http://worrydream.com/ABriefRantOnTheFutureOfInteractionDesign/Images/Tool2.png){fig-align="center"}
+
+::: notes
+your tool needs to "fit the person." people need some sort of tool that is ergonomic, feels GOOD to use.
+
+vetiver is a tool made especially with data scientists in mind. it should feel like a natural extension of their workflow, using the model objects that they are creating in python or R. this is also making a straightforward point of entry to get started with the tool, but the ability to extend these modular functions to be quite complex.
+:::
+
+## Tooling tips...
+
+-   composable
+-   reproducible
+-   ergonomic
+
+(and able to do the MLOps tasks we want)
+
+::: notes
+MLOps definitely covers a lot of ground. there's tools that focus on experiment tracking or maybe just pipelines, or other pieces
+:::
+
+# from the ground up
+
+-   what is MLOps anyway (and how can I start)? 🐶 ✅
+-   what do I need to keep in mind for tooling? 🔨 ✅
+
+## MLOps is...
+
+a set of <u>practices</u> to *deploy* and *maintain* machine learning models in production **reliably** and **efficiently**
+
+::: incremental
+-   versioning
+
+-   deploying
+
+-   monitoring
+:::
+
+. . .
+
+`vetiver` can help with this for your R and Python models!
+
+## Where does vetiver work?
+
+::: incremental
+-   RStudio's pro products, like [Connect](https://www.rstudio.com/products/connect/)
+
+-   A public or private cloud, using Docker
+:::
+
+## Learn more
+
+::: incremental
+-   Documentation at <https://vetiver.rstudio.com/>
+
+-   Talk from rstudio::conf() 2022 on [Demystifying MLOps](https://www.rstudio.com/conference/2022/talks/demystifying-mlops/) 🍪
+
+-   Recent screencast on [deploying a model with Docker](https://youtu.be/5s7fI4cl2C8)
+
+-   End-to-end demos from RStudio Solutions Engineering in [R](https://github.com/sol-eng/bike_predict) and [Python](https://github.com/sol-eng/bike_predict_python)
+:::

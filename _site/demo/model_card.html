@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>crunch 2022 - Model Card: your model title</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+        <script type="text/javascript">
+        window.PlotlyConfig = {MathJaxConfig: 'local'};
+        if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+        if (typeof require !== 'undefined') {
+        require.undef("plotly");
+        requirejs.config({
+            paths: {
+                'plotly': ['https://cdn.plot.ly/plotly-2.12.1.min']
+            }
+        });
+        require(['plotly'], function(Plotly) {
+            window._Plotly = Plotly;
+        });
+        }
+        </script>
+        
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">crunch 2022</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#model-details" id="toc-model-details" class="nav-link active" data-scroll-target="#model-details">Model details</a></li>
+  <li><a href="#intended-use" id="toc-intended-use" class="nav-link" data-scroll-target="#intended-use">Intended use</a></li>
+  <li><a href="#important-aspectsfactors" id="toc-important-aspectsfactors" class="nav-link" data-scroll-target="#important-aspectsfactors">Important aspects/factors</a></li>
+  <li><a href="#metrics" id="toc-metrics" class="nav-link" data-scroll-target="#metrics">Metrics</a></li>
+  <li><a href="#training-data-evaluation-data" id="toc-training-data-evaluation-data" class="nav-link" data-scroll-target="#training-data-evaluation-data">Training data &amp; evaluation data</a></li>
+  <li><a href="#quantitative-analyses" id="toc-quantitative-analyses" class="nav-link" data-scroll-target="#quantitative-analyses">Quantitative analyses</a></li>
+  <li><a href="#ethical-considerations" id="toc-ethical-considerations" class="nav-link" data-scroll-target="#ethical-considerations">Ethical considerations</a></li>
+  <li><a href="#caveats-recommendations" id="toc-caveats-recommendations" class="nav-link" data-scroll-target="#caveats-recommendations">Caveats &amp; recommendations</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Model Card: your model title</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell" data-execution_count="1">
+<section id="section" class="level6 cell-output cell-output-display">
+<h6 class="anchored" data-anchor-id="section">2022-10-03</h6>
+</section>
+</div>
+<p>A <a href="https://doi.org/10.1145/3287560.3287596">model card</a> provides brief, transparent, responsible reporting for a trained machine learning model.</p>
+<section id="model-details" class="level2">
+<h2 class="anchored" data-anchor-id="model-details">Model details</h2>
+<ul>
+<li>Developed by PERSON AND/OR TEAM</li>
+</ul>
+<div class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<ul>
+<li>A Scikit-learn &lt;class ‘sklearn.pipeline.Pipeline’&gt; model using 4 features.</li>
+</ul>
+</div>
+</div>
+<ul>
+<li>More details about how model was developed and what it is predicting</li>
+<li>More details on feature engineering and/or data preprocessing for model</li>
+</ul>
+<div class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<ul>
+<li>Version was created at 2022-09-12 14:15:35</li>
+</ul>
+</div>
+</div>
+<ul>
+<li>Citation and/or license details for the model</li>
+<li>If you have questions about this model, please contact PERSON@ORG.ORG</li>
+</ul>
+</section>
+<section id="intended-use" class="level2">
+<h2 class="anchored" data-anchor-id="intended-use">Intended use</h2>
+<ul>
+<li>The primary intended uses of this model are …</li>
+<li>The primary intended users of this model are …</li>
+<li>Some use cases are out of scope for this model, such as …</li>
+</ul>
+</section>
+<section id="important-aspectsfactors" class="level2">
+<h2 class="anchored" data-anchor-id="important-aspectsfactors">Important aspects/factors</h2>
+<ul>
+<li>Aspects or factors (demographic, environmental, technical) that are relevant to the context of this model are …</li>
+<li>In evaluating this model, we examined aspects such as …</li>
+</ul>
+</section>
+<section id="metrics" class="level2">
+<h2 class="anchored" data-anchor-id="metrics">Metrics</h2>
+<ul>
+<li>The metrics used to evaluate this model are …</li>
+<li>These metrics are computed via …</li>
+<li>We chose these metrics because …</li>
+</ul>
+</section>
+<section id="training-data-evaluation-data" class="level2">
+<h2 class="anchored" data-anchor-id="training-data-evaluation-data">Training data &amp; evaluation data</h2>
+<ul>
+<li>The training dataset for this model was …</li>
+<li>The training dataset for this model has the “prototype” or signature:</li>
+</ul>
+<div class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>{'type': {'title': 'Type', 'default': 'Residential', 'type': 'string'},
+ 'sqft': {'title': 'Sqft', 'default': 1280, 'type': 'integer'},
+ 'beds': {'title': 'Beds', 'default': 4, 'type': 'integer'},
+ 'baths': {'title': 'Baths', 'default': 2.0, 'type': 'number'}}</code></pre>
+</div>
+</div>
+<ul>
+<li>The evaluation dataset used in this model card is …</li>
+<li>We chose this evaluation data because …</li>
+</ul>
+</section>
+<section id="quantitative-analyses" class="level2">
+<h2 class="anchored" data-anchor-id="quantitative-analyses">Quantitative analyses</h2>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Overall model performance</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Disaggregated model performance</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Visualize model performance</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Make a custom plot</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell" data-execution_count="8">
+<div class="cell-output cell-output-stdout">
+<pre><code>mean_absolute_error :  35327.59209408034
+mean_squared_error :  2609143376.3139024
+r2_score :  0.8069944875376943</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="9">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>mean_absolute_error</th>
+      <th>mean_squared_error</th>
+      <th>r2_score</th>
+    </tr>
+    <tr>
+      <th>type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Condo</th>
+      <td>25304.509066</td>
+      <td>1.065670e+09</td>
+      <td>0.729467</td>
+    </tr>
+    <tr>
+      <th>Multi_Family</th>
+      <td>39106.228000</td>
+      <td>1.840461e+09</td>
+      <td>0.438653</td>
+    </tr>
+    <tr>
+      <th>Residential</th>
+      <td>36051.013522</td>
+      <td>2.764394e+09</td>
+      <td>0.802452</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>performance <span class="op">=</span> px.scatter(sacramento, x<span class="op">=</span><span class="st">"price"</span>, y <span class="op">=</span> <span class="st">"preds"</span>, facet_row<span class="op">=</span><span class="st">"type"</span>, trendline<span class="op">=</span><span class="st">"ols"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>performance.update_yaxes(matches<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>performance.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>                            <div id="4aefa6b3-adee-4306-a84f-abca690bba16" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("4aefa6b3-adee-4306-a84f-abca690bba16")) {                    Plotly.newPlot(                        "4aefa6b3-adee-4306-a84f-abca690bba16",                        [{"hovertemplate":"type=Residential<br>price=%{x}<br>preds=%{y}<extra></extra>","legendgroup":"","marker":{"color":"#636efa","symbol":"circle"},"mode":"markers","name":"","orientation":"v","showlegend":false,"x":[68212,98937,122682,123000,124100,126640,131200,146250,149593,164000,173000,181000,189000,231477,234697,242638,244500,254200,263500,285000,292024,334150,370500,372000,430000,510000,539000,98000,99000,111000,123750,126000,135500,145000,146000,150000,161653,175000,180400,205000,230000,236250,261000,270000,280000,330000,350000,460000,504000,613401,614000,101000,114750,116100,123000,130000,133105,136500,145000,147000,149600,150000,165000,168000,188325,215000,220000,232000,233641,240000,252155,254172,261000,270000,296000,304000,305000,325000,351000,355000,360552,362305,395100,408431,445000,500000,677048,95625,115000,115620,131750,137760,176095,176250,178000,190000,193000,193500,204918,220000,220000,220000,232500,233000,242000,243500,247000,249000,260000,270000,271000,280000,285000,289000,290000,294000,299000,300000,300567,310000,315000,326951,331200,335000,350000,375000,380000,400000,455000,600000,61000,70000,80000,85500,112500,114800,128687,130000,132000,145846,150000,170000,171750,172000,176850,189000,191675,209347,216000,216021,220000,224252,228000,235301],"xaxis":"x3","y":[145286.03,122660.6725,169544.55,148207.53166666665,184075.34,106764.33,143380.61,157824.34,139646.74,168272.57,189357.24,169363.02,181658.16,228059.78,150041.84,253027.7,248694.04,248481.45,241650.82,284676.6274603175,253682.14,314235.48,387639.5475,342714.67,446558.0,446836.95,321962.5,348483.76,187479.0,160902.34,128342.33333333331,125126.83476190476,146960.2,195432.80333333332,184737.13,165108.08,167662.1,250392.2,208870.48,223117.02333333332,246637.50666666668,210895.0,246637.50666666668,260586.5,273491.94,272106.98333333334,336327.37,262351.4,452582.87,624033.13,453572.37,96388.96,117195.30226190477,150272.69285714286,120950.88023809525,133305.11666666667,212200.54,199572.02,157961.8376623377,189357.24,168937.1792857143,197125.125,136082.0,160902.34,197916.925,245373.65,198381.35,207150.24,196732.55,252604.36,230936.47333333333,285169.3,276985.15,275768.85,298470.0,320823.36,224417.98,332455.74,333158.41,383660.88,308119.7,352238.37,397300.0,361819.07,398658.68,425493.17,571859.24,106764.33,104026.67066666666,203059.0751190476,140961.34126984127,177902.395,173143.06666666665,121840.0,180856.96666666665,103550.74773809522,182524.42857142858,203967.5,251484.94,232104.0,196961.39,203396.795,257908.2,187633.32666666663,215116.93666666668,268260.63,216869.68333333335,259574.32,242863.47,318930.86,326286.3,225143.76,287886.5,315206.98,279193.39,249142.12,214648.31,275768.85,284476.24666666664,288562.48,368470.0,295826.24,350836.0,315987.34,356423.0,358307.17,285517.24,453701.95,412555.68,557505.69,91065.45199999999,83951.75,114782.07,126325.33,212840.66699999996,163823.55,141028.25,185498.98242424242,96795.25,274002.2,140300.43,203387.6057857143,197022.42,254584.35333333333,210702.24,160902.34,220627.415,187480.0,153464.98,112244.742,213876.4,181054.29,183319.0085714286,189862.85],"yaxis":"y3","type":"scatter"},{"hovertemplate":"<b>OLS trendline</b><br>preds = 0.75069 * price + 58235.2<br>R<sup>2</sup>=0.806432<br><br>type=Residential<br>price=%{x}<br>preds=%{y} <b>(trend)</b><extra></extra>","legendgroup":"","marker":{"color":"#636efa","symbol":"circle"},"mode":"lines","name":"","showlegend":false,"x":[61000,68212,70000,80000,85500,95625,98000,98937,99000,101000,111000,112500,114750,114800,115000,115620,116100,122682,123000,123000,123750,124100,126000,126640,128687,130000,130000,131200,131750,132000,133105,135500,136500,137760,145000,145000,145846,146000,146250,147000,149593,149600,150000,150000,150000,161653,164000,165000,168000,170000,171750,172000,173000,175000,176095,176250,176850,178000,180400,181000,188325,189000,189000,190000,191675,193000,193500,204918,205000,209347,215000,216000,216021,220000,220000,220000,220000,220000,224252,228000,230000,231477,232000,232500,233000,233641,234697,235301,236250,240000,242000,242638,243500,244500,247000,249000,252155,254172,254200,260000,261000,261000,263500,270000,270000,270000,271000,280000,280000,285000,285000,289000,290000,292024,294000,296000,299000,300000,300567,304000,305000,310000,315000,325000,326951,330000,331200,334150,335000,350000,350000,351000,355000,360552,362305,370500,372000,375000,380000,395100,400000,408431,430000,445000,455000,460000,500000,504000,510000,539000,600000,613401,614000,677048],"xaxis":"x3","y":[104027.30149901075,109441.27983548495,110783.51406532631,118290.41691678803,122419.213485092,130019.952622197,131802.84204941918,132506.23884660113,132553.53233456533,134054.9129048577,141561.8157563194,142687.85118403868,144376.90432561756,144414.43883987487,144564.5768969041,145030.00487369474,145390.33621056488,150331.379667397,150570.0991780735,150570.0991780735,151133.11689193314,151395.8584917343,152822.17003351203,153302.61181600555,154839.27482969977,155824.9311740967,155824.9311740967,156725.7595162721,157138.6391731025,157326.31174438907,158155.82450947558,159953.72774240066,160704.41802754684,161650.28778683103,167085.28545128932,167085.28545128932,167720.36943252297,167835.9757364355,168023.64830772203,168586.66602158168,170533.2059309657,170538.4607629617,170838.7368770202,170838.7368770202,170838.7368770202,179586.53076982853,181348.4008690666,182099.09115421277,184351.1620096513,185852.54257994366,187166.25057894946,187353.923150236,188104.61343538217,189605.9940056745,190427.9998679096,190544.35686210723,190994.77103319496,191858.06486111303,193659.72154546384,194110.13571655157,199608.94205524726,200115.65799772093,200115.65799772093,200866.3482828671,202123.75451048696,203118.41913830565,203493.7642808787,212065.14595667773,212126.70256005973,215389.95322959014,219633.60541152145,220384.29569666763,220400.0601926557,223387.05683725234,223387.05683725234,223387.05683725234,223387.05683725234,223387.05683725234,226578.99192969385,229392.5791184217,230893.95968871407,232002.72923987493,232395.34025900642,232770.68540157948,233146.0305441526,233627.22301693127,234419.95195804565,234873.3688902739,235585.77397087764,238400.8625401758,239902.24311046815,240381.1835123914,241028.27853818738,241778.96882333356,243655.69453619898,245157.07510649133,247525.50295612752,249039.64526126737,249060.66458925145,253414.66824309924,254165.35852824542,254165.35852824542,256042.0842411109,260921.57109456102,260921.57109456102,260921.57109456102,261672.26137970714,268428.47394602274,268428.47394602274,272181.9253717536,272181.9253717536,275184.6865123383,275935.37679748447,277454.7739346203,278938.1379380692,280439.5185083615,282691.5893638,283442.2796489462,283867.9210406241,286445.0407895309,287195.7310746771,290949.1825004079,294702.6339261388,302209.53677760053,303674.1335239207,305962.9882033314,306863.8165455068,309078.352886688,309716.43962906225,320976.79390625487,320976.79390625487,321727.48419140105,324730.24533198576,328898.0777951173,330214.03786497854,336365.94475175143,337491.9801794707,339744.0510349092,343497.5024606401,354832.9257663473,358511.30816356355,364840.37795763096,381032.0167179488,392292.37099514133,399799.2738466031,403552.72527233395,433580.3366781809,436583.0978187656,441087.2395296426,462857.2577988817,508649.36519279826,518709.3657040421,519159.02918484464,566488.5502827406],"yaxis":"y3","type":"scatter"},{"hovertemplate":"type=Condo<br>price=%{x}<br>preds=%{y}<extra></extra>","legendgroup":"","marker":{"color":"#636efa","symbol":"circle"},"mode":"markers","name":"","orientation":"v","showlegend":false,"x":[89921,141000,152000,265000,100000,48000,100000,150000,232500,115000,210944,212500,92000],"xaxis":"x2","y":[134954.74333333335,142004.5,202571.45,279193.87,108990.20666666668,97511.93666666668,90165.12666666668,149255.52714285714,291336.795,109603.98,163636.21,230058.36,111974.6],"yaxis":"y2","type":"scatter"},{"hovertemplate":"<b>OLS trendline</b><br>preds = 0.936532 * price + 24888<br>R<sup>2</sup>=0.810573<br><br>type=Condo<br>price=%{x}<br>preds=%{y} <b>(trend)</b><extra></extra>","legendgroup":"","marker":{"color":"#636efa","symbol":"circle"},"mode":"lines","name":"","showlegend":false,"x":[48000,89921,92000,100000,100000,115000,141000,150000,152000,210944,212500,232500,265000],"xaxis":"x2","y":[69841.50776943497,109101.88258642748,111048.93344982596,118541.1926644425,118541.1926644425,132589.17869184853,156939.0211393523,165367.8127557959,167240.87755945005,222443.84345274474,223901.08786998765,242631.735906529,273069.0389659087],"yaxis":"y2","type":"scatter"},{"hovertemplate":"type=Multi_Family<br>price=%{x}<br>preds=%{y}<extra></extra>","legendgroup":"","marker":{"color":"#636efa","symbol":"circle"},"mode":"markers","name":"","orientation":"v","showlegend":false,"x":[195000,256054,120000,236000,285000],"xaxis":"x","y":[236200.66,246399.54,182305.44,268903.43,235532.85],"yaxis":"y","type":"scatter"},{"hovertemplate":"<b>OLS trendline</b><br>preds = 0.379335 * price + 151018<br>R<sup>2</sup>=0.582241<br><br>type=Multi_Family<br>price=%{x}<br>preds=%{y} <b>(trend)</b><extra></extra>","legendgroup":"","marker":{"color":"#636efa","symbol":"circle"},"mode":"lines","name":"","showlegend":false,"x":[120000,195000,236000,256054,285000],"xaxis":"x","y":[196537.73306348312,224987.85053269134,240540.58141585853,248147.7634922252,259127.99149574124],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.98],"title":{"text":"price"}},"yaxis":{"anchor":"x","domain":[0.0,0.3133333333333333],"title":{"text":"preds"}},"xaxis2":{"anchor":"y2","domain":[0.0,0.98],"matches":"x","showticklabels":false},"yaxis2":{"anchor":"x2","domain":[0.34333333333333327,0.6566666666666665],"title":{"text":"preds"}},"xaxis3":{"anchor":"y3","domain":[0.0,0.98],"matches":"x","showticklabels":false},"yaxis3":{"anchor":"x3","domain":[0.6866666666666665,0.9999999999999998],"title":{"text":"preds"}},"annotations":[{"font":{},"showarrow":false,"text":"type=Multi_Family","textangle":90,"x":0.98,"xanchor":"left","xref":"paper","y":0.15666666666666665,"yanchor":"middle","yref":"paper"},{"font":{},"showarrow":false,"text":"type=Condo","textangle":90,"x":0.98,"xanchor":"left","xref":"paper","y":0.4999999999999999,"yanchor":"middle","yref":"paper"},{"font":{},"showarrow":false,"text":"type=Residential","textangle":90,"x":0.98,"xanchor":"left","xref":"paper","y":0.8433333333333332,"yanchor":"middle","yref":"paper"}],"legend":{"tracegroupgap":0},"margin":{"t":60}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('4aefa6b3-adee-4306-a84f-abca690bba16');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>custom <span class="op">=</span> px.violin(sacramento, x<span class="op">=</span><span class="st">"beds"</span>, y <span class="op">=</span> <span class="st">"price"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>custom.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>                            <div id="2523e436-1445-4e02-897c-f4bcdf0e6b26" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("2523e436-1445-4e02-897c-f4bcdf0e6b26")) {                    Plotly.newPlot(                        "2523e436-1445-4e02-897c-f4bcdf0e6b26",                        [{"alignmentgroup":"True","box":{"visible":false},"hovertemplate":"beds=%{x}<br>price=%{y}<extra></extra>","legendgroup":"","marker":{"color":"#636efa"},"name":"","offsetgroup":"","orientation":"v","scalegroup":"True","showlegend":false,"x":[3,3,3,4,4,3,3,4,2,3,4,2,4,4,3,3,4,3,3,3,3,4,4,3,4,2,2,4,3,5,5,4,2,3,1,3,3,3,3,4,4,3,3,3,3,4,3,3,5,3,3,4,3,4,3,3,4,4,1,1,2,2,3,4,3,3,2,2,3,4,3,2,3,2,3,3,4,2,3,2,3,5,4,4,3,4,3,2,4,5,4,5,4,5,4,3,5,4,4,3,3,3,2,1,3,2,3,3,3,3,2,3,3,4,1,3,4,4,3,5,3,2,4,3,4,3,2,3,3,3,4,3,3,2,3,3,4,5,3,4,3,3,5,3,5,4,5,2,2,4,3,2,3,3,3,3,2,3,4,3,2,3,4,3,3,3,3,3,4,3,3,4],"x0":" ","xaxis":"x","y":[68212,89921,98937,122682,123000,124100,126640,131200,141000,146250,149593,152000,164000,173000,181000,189000,195000,231477,234697,242638,244500,254200,263500,265000,285000,292024,334150,370500,372000,430000,510000,539000,98000,99000,100000,111000,123750,126000,135500,145000,146000,150000,161653,175000,180400,205000,230000,236250,256054,261000,270000,280000,330000,350000,460000,504000,613401,614000,48000,100000,101000,114750,116100,120000,123000,130000,133105,136500,145000,147000,149600,150000,150000,165000,168000,188325,215000,220000,232000,232500,233641,236000,240000,252155,254172,261000,270000,285000,296000,304000,305000,325000,351000,355000,360552,362305,395100,408431,445000,500000,677048,95625,115000,115000,115620,131750,137760,176095,176250,178000,190000,193000,193500,204918,210944,212500,220000,220000,220000,232500,233000,242000,243500,247000,249000,260000,270000,271000,280000,285000,289000,290000,294000,299000,300000,300567,310000,315000,326951,331200,335000,350000,375000,380000,400000,455000,600000,61000,70000,80000,85500,92000,112500,114800,128687,130000,132000,145846,150000,170000,171750,172000,176850,189000,191675,209347,216000,216021,220000,224252,228000,235301],"y0":" ","yaxis":"y","type":"violin"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"beds"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"price"}},"legend":{"tracegroupgap":0},"margin":{"t":60},"violinmode":"group"},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('2523e436-1445-4e02-897c-f4bcdf0e6b26');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ethical-considerations" class="level2">
+<h2 class="anchored" data-anchor-id="ethical-considerations">Ethical considerations</h2>
+<ul>
+<li>We considered …</li>
+</ul>
+</section>
+<section id="caveats-recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="caveats-recommendations">Caveats &amp; recommendations</h2>
+<ul>
+<li>This model does …</li>
+<li>This model does not …</li>
+<li>We recommend …</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

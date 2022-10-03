@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.1.251">
+
+  <meta name="author" content="Isabel Zimmerman, RStudio, PBC">
+  <meta name="dcterms.date" content="2022-09-20">
+  <title>crunch 2022 - Building an MLOps strategy from the ground up</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-captioned.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-captioned) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-captioned .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-captioned .callout-caption  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-captioned.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-captioned.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-caption {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-caption {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-caption {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .callout.callout-captioned .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-captioned) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-caption {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-caption {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-caption {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-caption {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-caption {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+          <script type="text/javascript">
+          window.PlotlyConfig = {MathJaxConfig: 'local'};
+          if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+          if (typeof require !== 'undefined') {
+          require.undef("plotly");
+          requirejs.config({
+              paths: {
+                  'plotly': ['https://cdn.plot.ly/plotly-2.12.1.min']
+              }
+          });
+          require(['plotly'], function(Plotly) {
+              window._Plotly = Plotly;
+          });
+          }
+          </script>
+          
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="center">
+  <h1 class="title">Building an MLOps strategy from the ground up</h1>
+  <p class="subtitle">Crunch 2022</p>
+  <p class="author">Isabel Zimmerman, RStudio, PBC</p>
+  <p class="date">September 20, 2022</p>
+</section>
+
+<section id="from-the-ground-up" class="title-slide slide level1 center">
+<h1>from the ground up</h1>
+<div>
+<ul>
+<li class="fragment">what is MLOps anyway (and how can I start)? 🐶</li>
+<li class="fragment">what do I need to keep in mind for tooling? 🔨</li>
+</ul>
+</div>
+</section>
+
+<section id="section" class="title-slide slide level1 center">
+<h1></h1>
+<center>
+🐶
+</center>
+<aside class="notes">
+<p>hi im isabel</p>
+<p>started my career as a software engineer/data scientist, working on operationalizing models, mostly in kubernetes environments. if you know anything about k8s, they can be a little frustrating. so, giving my brain a break, i started training my little dog named toast to do tricks.</p>
+<p>when first taught my dog to sit, stood in front of him…</p>
+<p>go for a walk, side</p>
+<p>sit sit sit!!!! doesn’t sit</p>
+<p>now, as a data scientist, i realized i had not trained my dog very well. he only knew sit when i was standing in front of him.</p>
+<p>back home in my local environment, side</p>
+<p>sit sit sit!! huh, then sits</p>
+<p>toast taught me a hard lesson. even if youre training for the right outcome, sitting, being out of my house brought a new set of challenges, and he behaved differently</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+</section>
+
+<section id="section-1" class="title-slide slide level1 center">
+<h1></h1>
+<div class="r-fit-text">
+<p>if you develop models…</p>
+<p>you can operationalize them</p>
+</div>
+<aside class="notes">
+<p>but, this is not a dog training conference–so, i’ll tell you this.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-2" class="title-slide slide level1 center">
+<h1></h1>
+<div class="r-fit-text">
+<p>if you develop models…</p>
+<p>you <em>should</em> operationalize them*</p>
+</div>
+<div class="fragment">
+<p>*well, some of them</p>
+<aside class="notes">
+<p>in fact, i’ll go so far as to say this</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+<section id="section-3" class="title-slide slide level1 center">
+<h1></h1>
+<center>
+<pre><code>information -&gt; 🐶 -&gt; actions</code></pre>
+<aside class="notes">
+<p>i gave my dog information, telling him to sit, or some kind of input. at home there was a great response, reproducible responses! but out in the wilderness of my suburban neighborhood, when I gave my dog instructions, it didn’t always look the way I expected it to. working together with my dog to create actions–greeting the neighbor by sitting in a polite manner–looked different and felt different in different environments</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</center></section>
+
+<section id="section-4" class="title-slide slide level1 center">
+<h1></h1>
+<pre><code>information -&gt; model -&gt; actions</code></pre>
+
+<aside class="notes">
+<p>models work the same way. when you’re training and tuning a model, data scientists often live in a cozy, familiar environment. but when exposed to the messiness of real data, and the uncertainty of world in general, they may act differently.</p>
+<p>business value of models often comes from operationalizing a model–how that model works in the wild..</p>
+<p>but, maybe we’re getting ahead of ourselves here</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="what-is-mlops" class="title-slide slide level1 center">
+<h1>What is MLOps?</h1>
+<aside class="notes">
+<p>MLOps, or machine learning operations is where DevOps (development operations) and machine learning combine.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="mlops-is" class="title-slide slide level1 center">
+<h1>MLOps is…</h1>
+<div class="fragment">
+<p>a set of <u>practices</u> to <em>deploy</em> and <em>maintain</em> machine learning models in production <strong>reliably</strong> and <strong>efficiently</strong></p>
+<aside class="notes">
+<p>and these practices can be HARD. i said i started with kubernetes + models. after a while where i STRUGGLED with the tools at hand, i felt that, as a data scientist, the tools were not built for me. they were built for a software engineer that had pretty deep knowledge of infrastructure–and i needed to productionalize models, but i didn’t want to have to be a cloud architect as well a data scientist.</p>
+<p>so i changed career paths to build new tools designed specifically for data scientists to deploy models. my current role is to develop an open source package called vetiver, which is an mlops framework to help data scientists do model operations better in R and Python</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+
+<section id="section-5" class="title-slide slide level1 center">
+<h1></h1>
+<table>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 49%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>R</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>vetiver_model()</code> <code>new_vetiver_model()</code></td>
+<td><code>VetiverModel()</code></td>
+</tr>
+<tr class="even">
+<td><code>vetiver_pin_write()</code> <code>vetiver_pin_read()</code></td>
+<td><code>vetiver_pin_write()</code> <code>VetiverModel.from_pin()</code></td>
+</tr>
+<tr class="odd">
+<td><code>vetiver_api()</code> <code>vetiver_pr_post()</code></td>
+<td><code>VetiverAPI()</code> <code>VetiverAPI.vetiver_post()</code></td>
+</tr>
+<tr class="even">
+<td><code>vetiver_write_plumber()</code></td>
+<td><code>write_app()</code></td>
+</tr>
+<tr class="odd">
+<td><code>vetiver_compute_metrics()</code></td>
+<td><code>compute_metrics()</code></td>
+</tr>
+<tr class="even">
+<td><code>vetiver_pin_metrics()</code></td>
+<td><code>pin_metrics()</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="section-6" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="images/ml_ops_cycle_no_ops.png" class="r-stretch"><aside class="notes">
+<p>a basic workflow</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-7" class="title-slide slide level1 center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title"></h1>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a href="#cb3-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-2" class="hljs-ln-code"><a href="#cb3-2"></a>raw <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv'</span>)</span>
+<span id="cb3-3" class="hljs-ln-code"><a href="#cb3-3"></a>df <span class="op">=</span> raw[[<span class="st">"like_count"</span>, <span class="st">"funny"</span>, <span class="st">"show_product_quickly"</span>, <span class="st">"patriotic"</span>, <span class="op">\</span></span>
+<span id="cb3-4" class="hljs-ln-code"><a href="#cb3-4"></a>    <span class="st">"celebrity"</span>, <span class="st">"danger"</span>, <span class="st">"animals"</span>]].dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="section-8" class="title-slide slide level1 center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title"></h1>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb4-1" class="hljs-ln-code"><a href="#cb4-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2" class="hljs-ln-code"><a href="#cb4-2"></a>raw <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv'</span>)</span>
+<span id="cb4-3" class="hljs-ln-code"><a href="#cb4-3"></a>df <span class="op">=</span> raw[[<span class="st">"like_count"</span>, <span class="st">"funny"</span>, <span class="st">"show_product_quickly"</span>, <span class="st">"patriotic"</span>, <span class="op">\</span></span>
+<span id="cb4-4" class="hljs-ln-code"><a href="#cb4-4"></a>    <span class="st">"celebrity"</span>, <span class="st">"danger"</span>, <span class="st">"animals"</span>]].dropna()</span>
+<span id="cb4-5" class="hljs-ln-code"><a href="#cb4-5"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     like_count  funny  show_product_quickly  patriotic  celebrity  danger  \
+0        1233.0  False                 False      False      False   False   
+1         485.0   True                  True      False       True    True   
+2         129.0   True                 False      False      False    True   
+3           2.0  False                  True      False      False   False   
+4          20.0   True                  True      False      False    True   
+..          ...    ...                   ...        ...        ...     ...   
+241        10.0   True                 False       True       True   False   
+243       572.0  False                  True       True      False   False   
+244        14.0   True                 False      False       True    True   
+245        12.0   True                 False      False      False    True   
+246       334.0  False                 False      False       True   False   
+
+     animals  
+0      False  
+1      False  
+2       True  
+3      False  
+4       True  
+..       ...  
+241     True  
+243     True  
+244    False  
+245    False  
+246    False  
+
+[225 rows x 7 columns]</code></pre>
+</div>
+</div>
+</section>
+
+<section id="section-9" class="title-slide slide level1 center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title"></h1>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb6-1" class="hljs-ln-code"><a href="#cb6-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2" class="hljs-ln-code"><a href="#cb6-2"></a>raw <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv'</span>)</span>
+<span id="cb6-3" class="hljs-ln-code"><a href="#cb6-3"></a>df <span class="op">=</span> raw[[<span class="st">"like_count"</span>, <span class="st">"funny"</span>, <span class="st">"show_product_quickly"</span>, <span class="st">"patriotic"</span>, <span class="op">\</span></span>
+<span id="cb6-4" class="hljs-ln-code"><a href="#cb6-4"></a>    <span class="st">"celebrity"</span>, <span class="st">"danger"</span>, <span class="st">"animals"</span>]].dropna()</span>
+<span id="cb6-5" class="hljs-ln-code"><a href="#cb6-5"></a></span>
+<span id="cb6-6" class="hljs-ln-code"><a href="#cb6-6"></a><span class="im">from</span> sklearn <span class="im">import</span> model_selection, preprocessing, pipeline, ensemble</span>
+<span id="cb6-7" class="hljs-ln-code"><a href="#cb6-7"></a>X_train, X_test, y_train, y_test <span class="op">=</span> model_selection.train_test_split(</span>
+<span id="cb6-8" class="hljs-ln-code"><a href="#cb6-8"></a>    df.drop(columns <span class="op">=</span> [<span class="st">'like_count'</span>]),</span>
+<span id="cb6-9" class="hljs-ln-code"><a href="#cb6-9"></a>    df[<span class="st">'like_count'</span>],</span>
+<span id="cb6-10" class="hljs-ln-code"><a href="#cb6-10"></a>    test_size<span class="op">=</span><span class="fl">0.2</span></span>
+<span id="cb6-11" class="hljs-ln-code"><a href="#cb6-11"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="section-10" class="title-slide slide level1 center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title"></h1>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb7-1" class="hljs-ln-code"><a href="#cb7-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-2" class="hljs-ln-code"><a href="#cb7-2"></a>raw <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv'</span>)</span>
+<span id="cb7-3" class="hljs-ln-code"><a href="#cb7-3"></a>df <span class="op">=</span> raw[[<span class="st">"like_count"</span>, <span class="st">"funny"</span>, <span class="st">"show_product_quickly"</span>, <span class="st">"patriotic"</span>, <span class="op">\</span></span>
+<span id="cb7-4" class="hljs-ln-code"><a href="#cb7-4"></a>    <span class="st">"celebrity"</span>, <span class="st">"danger"</span>, <span class="st">"animals"</span>]].dropna()</span>
+<span id="cb7-5" class="hljs-ln-code"><a href="#cb7-5"></a></span>
+<span id="cb7-6" class="hljs-ln-code"><a href="#cb7-6"></a><span class="im">from</span> sklearn <span class="im">import</span> model_selection, preprocessing, pipeline, ensemble</span>
+<span id="cb7-7" class="hljs-ln-code"><a href="#cb7-7"></a>X_train, X_test, y_train, y_test <span class="op">=</span> model_selection.train_test_split(</span>
+<span id="cb7-8" class="hljs-ln-code"><a href="#cb7-8"></a>    df.drop(columns <span class="op">=</span> [<span class="st">'like_count'</span>]),</span>
+<span id="cb7-9" class="hljs-ln-code"><a href="#cb7-9"></a>    df[<span class="st">'like_count'</span>],</span>
+<span id="cb7-10" class="hljs-ln-code"><a href="#cb7-10"></a>    test_size<span class="op">=</span><span class="fl">0.2</span></span>
+<span id="cb7-11" class="hljs-ln-code"><a href="#cb7-11"></a>)</span>
+<span id="cb7-12" class="hljs-ln-code"><a href="#cb7-12"></a></span>
+<span id="cb7-13" class="hljs-ln-code"><a href="#cb7-13"></a>le <span class="op">=</span> preprocessing.OrdinalEncoder().fit(X_train)</span>
+<span id="cb7-14" class="hljs-ln-code"><a href="#cb7-14"></a>rf <span class="op">=</span> ensemble.RandomForestRegressor().fit(le.transform(X_train), y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section id="section-11" class="title-slide slide level1 center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title"></h1>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb8-1" class="hljs-ln-code"><a href="#cb8-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-2" class="hljs-ln-code"><a href="#cb8-2"></a>raw <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-02/youtube.csv'</span>)</span>
+<span id="cb8-3" class="hljs-ln-code"><a href="#cb8-3"></a>df <span class="op">=</span> raw[[<span class="st">"like_count"</span>, <span class="st">"funny"</span>, <span class="st">"show_product_quickly"</span>, <span class="st">"patriotic"</span>, <span class="op">\</span></span>
+<span id="cb8-4" class="hljs-ln-code"><a href="#cb8-4"></a>    <span class="st">"celebrity"</span>, <span class="st">"danger"</span>, <span class="st">"animals"</span>]].dropna()</span>
+<span id="cb8-5" class="hljs-ln-code"><a href="#cb8-5"></a></span>
+<span id="cb8-6" class="hljs-ln-code"><a href="#cb8-6"></a><span class="im">from</span> sklearn <span class="im">import</span> model_selection, preprocessing, pipeline, ensemble</span>
+<span id="cb8-7" class="hljs-ln-code"><a href="#cb8-7"></a>X_train, X_test, y_train, y_test <span class="op">=</span> model_selection.train_test_split(</span>
+<span id="cb8-8" class="hljs-ln-code"><a href="#cb8-8"></a>    df.drop(columns <span class="op">=</span> [<span class="st">'like_count'</span>]),</span>
+<span id="cb8-9" class="hljs-ln-code"><a href="#cb8-9"></a>    df[<span class="st">'like_count'</span>],</span>
+<span id="cb8-10" class="hljs-ln-code"><a href="#cb8-10"></a>    test_size<span class="op">=</span><span class="fl">0.2</span></span>
+<span id="cb8-11" class="hljs-ln-code"><a href="#cb8-11"></a>)</span>
+<span id="cb8-12" class="hljs-ln-code"><a href="#cb8-12"></a></span>
+<span id="cb8-13" class="hljs-ln-code"><a href="#cb8-13"></a>oe <span class="op">=</span> preprocessing.OrdinalEncoder().fit(X_train)</span>
+<span id="cb8-14" class="hljs-ln-code"><a href="#cb8-14"></a>rf <span class="op">=</span> ensemble.RandomForestRegressor().fit(oe.transform(X_train), y_train)</span>
+<span id="cb8-15" class="hljs-ln-code"><a href="#cb8-15"></a></span>
+<span id="cb8-16" class="hljs-ln-code"><a href="#cb8-16"></a>rf_pipe <span class="op">=</span> pipeline.Pipeline([(<span class="st">'ordinal_encoder'</span>,oe), (<span class="st">'random_forest'</span>, rf)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+
+<section>
+<section id="section-12" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="images/ml_ops_cycle.png" class="r-stretch"><aside class="notes">
+<p>vetiver focuses on 3 practices</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-1" class="slide level2">
+<h2>MLOps is…</h2>
+</section>
+<section id="mlops-is-versioning" class="slide level2">
+<h2>MLOps is… <strong>versioning</strong></h2>
+<p><code>model</code></p>
+<div class="fragment">
+<p><code>model_final</code></p>
+</div>
+<div class="fragment">
+<p><code>model_final_v2</code></p>
+</div>
+<div class="fragment">
+<p><code>model_final_v2_ACTUALLY</code></p>
+<aside class="notes">
+<p>lacks context not scalable</p>
+<p>versioning a model usually includes storing the model object, a hash for a robust and scalable version, and some metadata</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="mlops-is-versioning-1" class="slide level2">
+<h2>MLOps is… <strong>versioning</strong></h2>
+<p>managing change in models</p>
+<aside class="notes">
+<p>across time (model_final, model_final_2). this is also important if you have different implementations– for example, staging and production.</p>
+<p>really, anytime you have multiple models saved, some sort of versioning will help organize your models, making them easier to organize for yourself, share with your team members, and manage later on.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section id="section-13" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> pins</span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
+<span id="cb9-4"><a href="#cb9-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>pins is a project my team built, also in R</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-14" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> pins</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>model_board <span class="op">=</span> pins.board_local(</span>
+<span id="cb10-4"><a href="#cb10-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+<section id="section-15" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> pins</span>
+<span id="cb11-2"><a href="#cb11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3"></a>model_board <span class="op">=</span> pins.board_s3(</span>
+<span id="cb11-4"><a href="#cb11-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>amazon web services</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-16" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">import</span> pins</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>model_board <span class="op">=</span> pins.board_gcs(</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>google cloud storage</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-17" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="im">import</span> pins</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a>model_board <span class="op">=</span> pins.board_azure(</span>
+<span id="cb13-4"><a href="#cb13-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>microsoft azure blob storage</p>
+<p>now, these will require a few more arguments for credentials</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-18" class="title-slide slide level1 center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title"></h1>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb14-1" class="hljs-ln-code"><a href="#cb14-1"></a><span class="im">import</span> pins</span>
+<span id="cb14-2" class="hljs-ln-code"><a href="#cb14-2"></a></span>
+<span id="cb14-3" class="hljs-ln-code"><a href="#cb14-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
+<span id="cb14-4" class="hljs-ln-code"><a href="#cb14-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb14-5" class="hljs-ln-code"><a href="#cb14-5"></a></span>
+<span id="cb14-6" class="hljs-ln-code"><a href="#cb14-6"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, vetiver_pin_write</span>
+<span id="cb14-7" class="hljs-ln-code"><a href="#cb14-7"></a></span>
+<span id="cb14-8" class="hljs-ln-code"><a href="#cb14-8"></a>v <span class="op">=</span> VetiverModel(rf_pipe, <span class="st">"ads"</span>, ptype_data <span class="op">=</span> X_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>deployable model object</p>
+<p>using the model object– however youre getting data can stay the same! however you are modeling can stay the same!</p>
+<p>data prototype - a common failure point is deployed data looks different</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-19" class="title-slide slide level1 center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title"></h1>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Python</a></li><li><a href="#tabset-1-2">R</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="im">import</span> pins</span>
+<span id="cb15-2"><a href="#cb15-2"></a></span>
+<span id="cb15-3"><a href="#cb15-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
+<span id="cb15-4"><a href="#cb15-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, vetiver_pin_write</span>
+<span id="cb15-7"><a href="#cb15-7"></a></span>
+<span id="cb15-8"><a href="#cb15-8"></a>v <span class="op">=</span> VetiverModel(rf_pipe, <span class="st">"ads"</span>, ptype_data <span class="op">=</span> X_train)</span>
+<span id="cb15-9"><a href="#cb15-9"></a></span>
+<span id="cb15-10"><a href="#cb15-10"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-2">
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(vetiver)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">library</span>(pins)</span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a>model_board <span class="ot">&lt;-</span> <span class="fu">board_temp</span>()</span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(model, <span class="st">"ads"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7"></a></span>
+<span id="cb16-8"><a href="#cb16-8"></a>model_board <span class="sc">%&gt;%</span> </span>
+<span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>writing data to the pin</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section>
+<section id="section-20" class="title-slide slide level1 center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title"></h1>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb17-1" class="hljs-ln-code"><a href="#cb17-1"></a><span class="im">import</span> pins</span>
+<span id="cb17-2" class="hljs-ln-code"><a href="#cb17-2"></a></span>
+<span id="cb17-3" class="hljs-ln-code"><a href="#cb17-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
+<span id="cb17-4" class="hljs-ln-code"><a href="#cb17-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb17-5" class="hljs-ln-code"><a href="#cb17-5"></a></span>
+<span id="cb17-6" class="hljs-ln-code"><a href="#cb17-6"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, vetiver_pin_write</span>
+<span id="cb17-7" class="hljs-ln-code"><a href="#cb17-7"></a></span>
+<span id="cb17-8" class="hljs-ln-code"><a href="#cb17-8"></a>v <span class="op">=</span> VetiverModel(rf_pipe, <span class="st">"ads"</span>, ptype_data <span class="op">=</span> X_train)</span>
+<span id="cb17-9" class="hljs-ln-code"><a href="#cb17-9"></a></span>
+<span id="cb17-10" class="hljs-ln-code"><a href="#cb17-10"></a>vetiver_pin_write(model_board, v)</span>
+<span id="cb17-11" class="hljs-ln-code"><a href="#cb17-11"></a></span>
+<span id="cb17-12" class="hljs-ln-code"><a href="#cb17-12"></a>model_board.pin_meta(<span class="st">"ads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>Meta(title='ads: a pinned Pipeline object', description="Scikit-learn &lt;class 'sklearn.pipeline.Pipeline'&gt; model", created='20221003T134617Z', pin_hash='31b1bbe61e8421b4', file='ads.joblib', file_size=464482, type='joblib', api_version=1, version=Version(created=datetime.datetime(2022, 10, 3, 13, 46, 17), hash='31b1b'), name='ads', user={'ptype': '{"funny": true, "show_product_quickly": false, "patriotic": false, "celebrity": false, "danger": false, "animals": false}', 'required_pkgs': ['vetiver', 'scikit-learn']})</code></pre>
+</div>
+</div>
+</section>
+<section id="mlops-is-versioning-2" class="slide level2">
+<h2>MLOps is… <strong>versioning</strong></h2>
+<p>where are these models going?</p>
+<div class="fragment">
+<ul>
+<li>pin boards</li>
+<li>model registries</li>
+</ul>
+<aside class="notes">
+<p>youve probably heard of the statistic that 85 % of models don’t make it to production, that is, they don’t get deployed, and some people try to say that this is a reason why we need MLOps tools. you might update a model tens of times before it is truly ready for production.</p>
+<p>while we do need MLOps tools, the fact that most models don’t make it to production might be a good thing (in a cost saving sense as well as model quality sense).</p>
+<p>model is versioned, but still on a local machine where whould it go to be easily accessed to many people?</p>
+<p>you can store them somewhere…maybe a model registry! this is a centralized location for many models to be stored. however, model registries are storing the model, not running the model. you still need to download them or do some sort of operation to actually make a prediction, which is a pretty clunky workflow</p>
+<p>which leads us to…</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="mlops-is-deploying" class="slide level2">
+<h2>MLOps is… <strong>deploying</strong></h2>
+</section>
+<section id="mlops-is-deploying-1" class="slide level2">
+<h2>MLOps is… <strong>deploying</strong></h2>
+<p>putting a model in production</p>
+<div class="fragment">
+<p><em>uh, what’s production?</em></p>
+<aside class="notes">
+<p>deploying means many different things. in general, we say that deploying a model is putting a model in production</p>
+<p>uh, what is production?</p>
+<p>production can mean a lot of different things. in fact, you might have deployed a model without even knowing it</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="mlops-is-deploying-2" class="slide level2">
+<h2>MLOps is… <strong>deploying</strong></h2>
+<p>putting a model <del>in production</del> somewhere that is not on your local laptop</p>
+<aside class="notes">
+<p>the IDEA of data science workflows are directly opposite of software engineering best practices. where software engineers are interested in robust applications and strong testing and absolute certainty that something will behave as expected, data science requires agility and experimental behavior</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-deploying-3" class="slide level2">
+<h2>MLOps is… <strong>deploying</strong></h2>
+<p>putting a model <del>in production</del> somewhere that is not on your local laptop</p>
+<div>
+<ul>
+<li class="fragment">REST APIs
+<ul>
+<li class="fragment">run on a local laptop</li>
+<li class="fragment">run inside a container, such as Docker</li>
+</ul></li>
+</ul>
+</div>
+<aside class="notes">
+<p>REST APIs (Representational state transfer application programming interface) are uniform interface between physically separate components. standardized way for machines to communicate to each other.</p>
+<p>&amp;&amp;&amp;</p>
+<p>tools like vetiver use pre-set interfaces such as open api specifications. these standards for how software programs communicate with each other help developers have to write less code to make different software programs work together seamlessly.</p>
+<p>REST APIs are useful since they are endpoints that can be hosted in different computational environments, independent of the application</p>
+<p>this makes the software engineering part of me very very happy, since decoupling the</p>
+<p>&amp;&amp;&amp;</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section id="section-21" class="title-slide slide level1 center">
+<h1></h1>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, VetiverAPI, vetiver_pin_write</span>
+<span id="cb19-2"><a href="#cb19-2"></a>v <span class="op">=</span> VetiverModel(rf_pipe, <span class="st">"ads"</span>, ptype_data <span class="op">=</span> X_train) </span>
+<span id="cb19-3"><a href="#cb19-3"></a></span>
+<span id="cb19-4"><a href="#cb19-4"></a>VetiverAPI(v).run()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>flexible tool– creating a FastAPI endpoint and adding in things to make it model aware</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-22" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="images/local_general.png" class="r-stretch"><aside class="notes">
+<p>start up</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-23" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="images/local_predict.png" class="r-stretch"></section>
+
+<section id="section-24" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="images/local.gif" class="r-stretch"><aside class="notes">
+<p>self documenting</p>
+<p>health endpoint, make sure everything is online</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-25" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>vetiver.deploy_rsconnect(</span>
+<span id="cb20-2"><a href="#cb20-2"></a>    connect_server <span class="op">=</span> connect_server, </span>
+<span id="cb20-3"><a href="#cb20-3"></a>    board <span class="op">=</span> model_board, </span>
+<span id="cb20-4"><a href="#cb20-4"></a>    pin_name <span class="op">=</span> <span class="st">"ads"</span>, </span>
+<span id="cb20-5"><a href="#cb20-5"></a>    version <span class="op">=</span> <span class="st">"59869"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+<section id="section-26" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="images/local_general.png" class="r-stretch"></section>
+
+<section id="section-27" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="images/colorado_general.png" class="r-stretch"></section>
+
+<section id="section-28" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="images/local_predict.png" class="r-stretch"></section>
+
+<section id="section-29" class="title-slide slide level1 center">
+<h1></h1>
+
+<img data-src="images/colorado_predict.png" class="r-stretch"><aside class="notes">
+<p>besides me thinking this is kinda funny, this actually brings us to another great point</p>
+<p>things break pretty quickly when your development cycle acts or even feels differently than your production environment–this is a nod to the reproducibility of APIs, we wanted the APIs to look the same, even if they’re hosted in different locations</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>vetiver.write_app(board<span class="op">=</span>board, pin_name<span class="op">=</span><span class="st">"ads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>will create a file named app.py with all the information needed</p>
+<p>just a python script. it will run out of the box (pending you give it the right credentials)</p>
+<p>for some cloud providers, this might be enough</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section>
+<section id="section-30" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>vetiver.write_app(board<span class="op">=</span>board, pin_name<span class="op">=</span><span class="st">"ads"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2"></a>vetiver.write_docker(app_file<span class="op">=</span><span class="st">"app.py"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>maybe you’re a docker fan?</p>
+<p>just a python script. it will run out of the box (pending you give it the right credentials)</p>
+<p>docker is pretty well received by cloud providers, bring your own container philosophy</p>
+<p>currently working on explicit workflows for different cloud providers</p>
+<p>also working on specialized docker containers (AWS Lambda)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-monitoring" class="slide level2">
+<h2>MLOps is… <strong>monitoring</strong></h2>
+<aside class="notes">
+<p>model is deployed</p>
+<p>a data scientist’s work is not done!</p>
+<p>continuous monitoring– continue to track how the model</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-monitoring-1" class="slide level2">
+<h2>MLOps is… <strong>monitoring</strong></h2>
+
+<img data-src="images/drift.png" class="r-stretch"><aside class="notes">
+<p>model drift when your model’s performance metrics start decaying. this is SO IMPORTANT TO TRACK.</p>
+<p>software engineering–when things went wrong, ERROR</p>
+<p>models fail silently! and they can still run with no error, even if your accuracy is zero percent–</p>
+<p>if you are not monitoring your model in some way, you are oblivious to decay.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-monitoring-2" class="slide level2">
+<h2>MLOps is… <strong>monitoring</strong></h2>
+<p>how do we use time?</p>
+</section>
+<section id="section-31" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="im">import</span> vetiver</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="im">from</span> datetime <span class="im">import</span> timedelta</span>
+<span id="cb23-4"><a href="#cb23-4"></a></span>
+<span id="cb23-5"><a href="#cb23-5"></a>metric_set <span class="op">=</span> [metrics.mean_absolute_error, metrics.mean_squared_error]</span>
+<span id="cb23-6"><a href="#cb23-6"></a></span>
+<span id="cb23-7"><a href="#cb23-7"></a>metrics <span class="op">=</span> vetiver.compute_metrics(</span>
+<span id="cb23-8"><a href="#cb23-8"></a>    new_data, </span>
+<span id="cb23-9"><a href="#cb23-9"></a>    <span class="st">"date"</span>, </span>
+<span id="cb23-10"><a href="#cb23-10"></a>    timedelta(weeks <span class="op">=</span> <span class="dv">1</span>), </span>
+<span id="cb23-11"><a href="#cb23-11"></a>    metric_set, </span>
+<span id="cb23-12"><a href="#cb23-12"></a>    <span class="st">"like_count"</span>, </span>
+<span id="cb23-13"><a href="#cb23-13"></a>    <span class="st">"preds"</span></span>
+<span id="cb23-14"><a href="#cb23-14"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<ul>
+<li>have new data (saving from infra)</li>
+<li>contains things like date the prediction was made, the predicted value, and the actual value</li>
+</ul>
+<p>give the function this data, but also a few other things: - amount of time to aggregate over - set of metrics to track</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-32" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>metrics <span class="op">=</span> vetiver.compute_metrics(</span>
+<span id="cb24-2"><a href="#cb24-2"></a>    new_data, </span>
+<span id="cb24-3"><a href="#cb24-3"></a>    <span class="st">"date"</span>, </span>
+<span id="cb24-4"><a href="#cb24-4"></a>    timedelta(weeks <span class="op">=</span> <span class="dv">1</span>), </span>
+<span id="cb24-5"><a href="#cb24-5"></a>    metric_set, </span>
+<span id="cb24-6"><a href="#cb24-6"></a>    <span class="st">"like_count"</span>, </span>
+<span id="cb24-7"><a href="#cb24-7"></a>    <span class="st">"preds"</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a>    )</span>
+<span id="cb24-9"><a href="#cb24-9"></a></span>
+<span id="cb24-10"><a href="#cb24-10"></a>vetiver.pin_metrics(</span>
+<span id="cb24-11"><a href="#cb24-11"></a>    model_board, </span>
+<span id="cb24-12"><a href="#cb24-12"></a>    metrics, </span>
+<span id="cb24-13"><a href="#cb24-13"></a>    <span class="st">"ads_metrics"</span>, </span>
+<span id="cb24-14"><a href="#cb24-14"></a>    overwrite <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>common failure is storing data that might overlap in date</p>
+<p>once computed, you can pin the dataframe of metrics to keep a log of your model performance! give it a fancy name, and you can also specify if you would like to overwrite any overlapping dates from the last time you computed/pinned metrics.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-33" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>vetiver.pin_metrics(</span>
+<span id="cb25-2"><a href="#cb25-2"></a>    model_board, </span>
+<span id="cb25-3"><a href="#cb25-3"></a>    metrics, </span>
+<span id="cb25-4"><a href="#cb25-4"></a>    <span class="st">"ads_metrics"</span>, </span>
+<span id="cb25-5"><a href="#cb25-5"></a>    overwrite <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>    )</span>
+<span id="cb25-7"><a href="#cb25-7"></a></span>
+<span id="cb25-8"><a href="#cb25-8"></a>m <span class="op">=</span> vetiver.plot_metrics(metrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="section-34" class="slide level2">
+<h2></h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>vetiver.pin_metrics(</span>
+<span id="cb26-2"><a href="#cb26-2"></a>    model_board, </span>
+<span id="cb26-3"><a href="#cb26-3"></a>    metrics, </span>
+<span id="cb26-4"><a href="#cb26-4"></a>    <span class="st">"ads_metrics"</span>, </span>
+<span id="cb26-5"><a href="#cb26-5"></a>    overwrite <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a>    )</span>
+<span id="cb26-7"><a href="#cb26-7"></a></span>
+<span id="cb26-8"><a href="#cb26-8"></a>m <span class="op">=</span> vetiver.plot_metrics(metrics)</span>
+<span id="cb26-9"><a href="#cb26-9"></a>m.update_yaxes(matches<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb26-10"><a href="#cb26-10"></a>m.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>flexible tool– will create plot, you can customize (ie, rescale the y-axis)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-35" class="slide level2">
+<h2></h2>
+<div class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+
+<div>                            <div id="4cb0d48f-3141-4f9b-9d47-5dacea6eb156" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("4cb0d48f-3141-4f9b-9d47-5dacea6eb156")) {                    Plotly.newPlot(                        "4cb0d48f-3141-4f9b-9d47-5dacea6eb156",                        [{"customdata":[[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[5]],"hovertemplate":"metric=mean_absolute_error<br>index=%{x}<br>estimate=%{y}<br>n=%{customdata[0]:}<extra></extra>","legendgroup":"mean_absolute_error","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"markers+lines","name":"mean_absolute_error","orientation":"v","showlegend":true,"x":["2014-10-01T00:00:00","2014-10-08T00:00:00","2014-10-15T00:00:00","2014-10-22T00:00:00","2014-10-29T00:00:00","2014-11-05T00:00:00","2014-11-12T00:00:00","2014-11-19T00:00:00","2014-11-26T00:00:00","2014-12-03T00:00:00","2014-12-10T00:00:00","2014-12-17T00:00:00","2014-12-24T00:00:00","2014-12-31T00:00:00","2015-01-07T00:00:00","2015-01-14T00:00:00","2015-01-21T00:00:00","2015-01-28T00:00:00","2015-02-04T00:00:00","2015-02-11T00:00:00","2015-02-18T00:00:00","2015-02-25T00:00:00","2015-03-04T00:00:00","2015-03-11T00:00:00","2015-03-18T00:00:00","2015-03-25T00:00:00","2015-04-01T00:00:00","2015-04-08T00:00:00","2015-04-15T00:00:00","2015-04-22T00:00:00","2015-04-29T00:00:00","2015-05-06T00:00:00","2015-05-13T00:00:00","2015-05-20T00:00:00","2015-05-27T00:00:00","2015-06-03T00:00:00","2015-06-10T00:00:00","2015-06-17T00:00:00","2015-06-24T00:00:00","2015-07-01T00:00:00","2015-07-08T00:00:00","2015-07-15T00:00:00","2015-07-22T00:00:00","2015-07-29T00:00:00","2015-08-05T00:00:00","2015-08-12T00:00:00","2015-08-19T00:00:00","2015-08-26T00:00:00","2015-09-02T00:00:00","2015-09-09T00:00:00","2015-09-16T00:00:00","2015-09-23T00:00:00","2015-09-30T00:00:00","2015-10-07T00:00:00","2015-10-14T00:00:00","2015-10-21T00:00:00","2015-10-28T00:00:00","2015-11-04T00:00:00","2015-11-11T00:00:00","2015-11-18T00:00:00","2015-11-25T00:00:00","2015-12-02T00:00:00","2015-12-09T00:00:00","2015-12-16T00:00:00","2015-12-23T00:00:00","2015-12-30T00:00:00","2016-01-06T00:00:00","2016-01-13T00:00:00","2016-01-20T00:00:00","2016-01-27T00:00:00","2016-02-03T00:00:00","2016-02-10T00:00:00","2016-02-17T00:00:00","2016-02-24T00:00:00","2016-03-02T00:00:00","2016-03-09T00:00:00","2016-03-16T00:00:00","2016-03-23T00:00:00","2016-03-30T00:00:00","2016-04-06T00:00:00","2016-04-13T00:00:00","2016-04-20T00:00:00","2016-04-27T00:00:00","2016-05-04T00:00:00","2016-05-11T00:00:00","2016-05-18T00:00:00","2016-05-25T00:00:00","2016-06-01T00:00:00","2016-06-08T00:00:00","2016-06-15T00:00:00","2016-06-22T00:00:00","2016-06-29T00:00:00","2016-07-06T00:00:00","2016-07-13T00:00:00","2016-07-20T00:00:00","2016-07-27T00:00:00","2016-08-03T00:00:00","2016-08-10T00:00:00","2016-08-17T00:00:00","2016-08-24T00:00:00"],"xaxis":"x2","y":[0.7082257351703921,1.464858809992281,0.6073192400931632,1.2843454614490715,0.715373770050489,1.394354873113294,1.527875544795075,1.6911619318572018,4.712511271491934,0.8083542276372669,4.335958967591493,1.2748605398277273,7.1546371245214,4.737499850554154,5.590041340537949,5.360912225586856,1.7107529618500095,1.777444720055444,0.8792166547771003,0.9400210630871564,0.8258217015832499,2.0092171955620826,1.5679381329992859,2.4051562254781564,1.3878327795424537,1.54252490454687,0.9475171159582274,0.8481116895577567,1.9775271165075543,1.534230675655475,1.0982077240164605,1.359375657889229,1.537534227225166,2.5908980929478234,1.529109387660435,3.6547528202776225,1.3472265751604353,1.3720013295549671,1.1752172201472095,2.620927468575613,1.5798437348514125,2.259011646352538,0.6809512019740512,1.126183528215681,0.7867450516531802,1.2434247222726005,0.9393095750906809,0.885655975202287,3.404101000244141,0.8690175635638245,3.1704195154506123,1.2165348201381125,1.637435308218599,1.8340167523601314,1.4415946479322521,1.8539556333469667,1.0596262350408558,1.4149599929042154,1.3491187945580283,0.96602640397279,4.890261883192433,1.4441924219413376,4.9886920558625985,0.9987489106132338,6.905702351705506,4.730576232705515,6.253769125175976,5.641869392142387,1.3510574308546215,2.2901847751947826,0.7684609317218841,2.0048755387786583,1.2861817737317078,2.30964979954112,1.278036489524775,1.9854279042593146,1.258921331065233,1.643290184927017,1.2629722041277716,1.1889037901678994,1.0684653705705902,0.38408295971679646,0.9817209689243862,1.4686088645019524,0.7791037265818762,1.315673500453403,2.390645977897077,1.8076482757742744,3.988136016427176,1.3485817954616277,1.118456730015345,3.0542237416643423,0.9663938203456967,3.0438704150399083,1.6055731502162394,2.108264059186662,1.4485731313571424,0.9725421944110039,0.8891623746163498,1.0950287286621092],"yaxis":"y2","type":"scatter"},{"customdata":[[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[5]],"hovertemplate":"metric=mean_squared_error<br>index=%{x}<br>estimate=%{y}<br>n=%{customdata[0]:}<extra></extra>","legendgroup":"mean_squared_error","line":{"color":"#EF553B","dash":"solid"},"marker":{"symbol":"circle"},"mode":"markers+lines","name":"mean_squared_error","orientation":"v","showlegend":true,"x":["2014-10-01T00:00:00","2014-10-08T00:00:00","2014-10-15T00:00:00","2014-10-22T00:00:00","2014-10-29T00:00:00","2014-11-05T00:00:00","2014-11-12T00:00:00","2014-11-19T00:00:00","2014-11-26T00:00:00","2014-12-03T00:00:00","2014-12-10T00:00:00","2014-12-17T00:00:00","2014-12-24T00:00:00","2014-12-31T00:00:00","2015-01-07T00:00:00","2015-01-14T00:00:00","2015-01-21T00:00:00","2015-01-28T00:00:00","2015-02-04T00:00:00","2015-02-11T00:00:00","2015-02-18T00:00:00","2015-02-25T00:00:00","2015-03-04T00:00:00","2015-03-11T00:00:00","2015-03-18T00:00:00","2015-03-25T00:00:00","2015-04-01T00:00:00","2015-04-08T00:00:00","2015-04-15T00:00:00","2015-04-22T00:00:00","2015-04-29T00:00:00","2015-05-06T00:00:00","2015-05-13T00:00:00","2015-05-20T00:00:00","2015-05-27T00:00:00","2015-06-03T00:00:00","2015-06-10T00:00:00","2015-06-17T00:00:00","2015-06-24T00:00:00","2015-07-01T00:00:00","2015-07-08T00:00:00","2015-07-15T00:00:00","2015-07-22T00:00:00","2015-07-29T00:00:00","2015-08-05T00:00:00","2015-08-12T00:00:00","2015-08-19T00:00:00","2015-08-26T00:00:00","2015-09-02T00:00:00","2015-09-09T00:00:00","2015-09-16T00:00:00","2015-09-23T00:00:00","2015-09-30T00:00:00","2015-10-07T00:00:00","2015-10-14T00:00:00","2015-10-21T00:00:00","2015-10-28T00:00:00","2015-11-04T00:00:00","2015-11-11T00:00:00","2015-11-18T00:00:00","2015-11-25T00:00:00","2015-12-02T00:00:00","2015-12-09T00:00:00","2015-12-16T00:00:00","2015-12-23T00:00:00","2015-12-30T00:00:00","2016-01-06T00:00:00","2016-01-13T00:00:00","2016-01-20T00:00:00","2016-01-27T00:00:00","2016-02-03T00:00:00","2016-02-10T00:00:00","2016-02-17T00:00:00","2016-02-24T00:00:00","2016-03-02T00:00:00","2016-03-09T00:00:00","2016-03-16T00:00:00","2016-03-23T00:00:00","2016-03-30T00:00:00","2016-04-06T00:00:00","2016-04-13T00:00:00","2016-04-20T00:00:00","2016-04-27T00:00:00","2016-05-04T00:00:00","2016-05-11T00:00:00","2016-05-18T00:00:00","2016-05-25T00:00:00","2016-06-01T00:00:00","2016-06-08T00:00:00","2016-06-15T00:00:00","2016-06-22T00:00:00","2016-06-29T00:00:00","2016-07-06T00:00:00","2016-07-13T00:00:00","2016-07-20T00:00:00","2016-07-27T00:00:00","2016-08-03T00:00:00","2016-08-10T00:00:00","2016-08-17T00:00:00","2016-08-24T00:00:00"],"xaxis":"x","y":[0.7160336952759948,3.385446687565463,0.5826647643205908,3.016281525871763,0.646108348458964,3.3805134026130594,2.722813365885873,5.3920131799109425,56.904909690872614,1.204842004399872,46.180506331902556,2.721950620611396,79.79378158098886,37.09317087202072,45.248567613540956,49.6120311005523,4.2132420420406245,4.127901873029124,1.0148972008344601,1.6050369160828877,1.3730239451294513,7.2838673192416445,2.9972412608622494,10.101010904906035,2.3496043857548727,4.848575344609786,1.4900384895690355,0.9738663308348041,5.013376764436016,2.901907051697894,1.5249534848218307,2.4663852001300706,2.5581275947540925,25.47385746543662,2.443035135185691,28.946915304608353,2.4193792843440454,3.0706567575176833,1.8023204622358955,17.202631485547197,2.9307877147986687,16.894694671823263,0.9842816555358542,1.7780496755096074,1.25906702640889,2.163707915631434,1.445133719493717,1.1700542082468819,37.46670178341479,1.0813829410284073,27.77828780271266,1.8711602244905272,2.907117966372321,3.594273195912969,2.419292416776127,6.082543065164101,2.8316874771473897,2.509986937941864,2.616688762543889,1.3964660296569809,59.54063101882419,2.2397577612039146,58.582485520912236,1.0633718146904807,72.74565486490519,36.118371420363054,59.424165015506176,51.54104039717913,2.51723541515125,16.3841540514275,0.8930206682495331,10.635500932646712,2.0615562612783918,12.487997496781986,2.080747126111033,7.142514031024773,2.4513975607945504,3.8946557845490246,2.2639652467272353,2.677409540302434,1.491384699150054,0.27828513151003736,1.2222712526683495,2.5889403129285347,0.9546858254920502,2.0176618047133044,28.575832178693812,3.5286863441547607,36.83567540997577,2.2514495594379897,1.42758997513046,31.112421987028334,1.2533147083374427,27.63060804440269,2.9833947540905403,5.526390336063025,2.3220556348748222,1.1054402853440475,0.8883100988575158,1.5757848012128506],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.98],"title":{"text":"index"}},"yaxis":{"anchor":"x","domain":[0.0,0.485],"title":{"text":"estimate"}},"xaxis2":{"anchor":"y2","domain":[0.0,0.98],"matches":"x","showticklabels":false},"yaxis2":{"anchor":"x2","domain":[0.515,1.0],"title":{"text":"estimate"}},"annotations":[{"font":{},"showarrow":false,"text":"mean_squared_error","textangle":90,"x":0.98,"xanchor":"left","xref":"paper","y":0.2425,"yanchor":"middle","yref":"paper"},{"font":{},"showarrow":false,"text":"mean_absolute_error","textangle":90,"x":0.98,"xanchor":"left","xref":"paper","y":0.7575000000000001,"yanchor":"middle","yref":"paper"}],"legend":{"title":{"text":"metric"},"tracegroupgap":0},"margin":{"t":60},"showlegend":false},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('4cb0d48f-3141-4f9b-9d47-5dacea6eb156');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div>
+</div>
+</div>
+</section>
+<section id="mlops-is-monitoring-3" class="slide level2">
+<h2>MLOps is… <strong>monitoring</strong></h2>
+<p>when things go wrong:</p>
+<div>
+<ul>
+<li class="fragment">retrain, retrain, retrain</li>
+<li class="fragment">try a new model type</li>
+<li class="fragment">remember to version!</li>
+</ul>
+</div>
+<aside class="notes">
+<p>if performance is declining, - retraining model? - new model type altogether?</p>
+<p>if you are using model versioning, it becomes easier to roll back to the latest version</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-thinking-about-making-good-models" class="slide level2">
+<h2>MLOps is… <strong>thinking about making good models</strong></h2>
+<aside class="notes">
+<p>not only do we want our models to be GOOD in a statistical and business sense, but also GOOD in an ethical sense</p>
+<p>there’s no surefire way to avoid bias, but being thoughtful is a good place to start</p>
+<p>actually, my dad has a quote that he always tells me–“if you haven’t written it down, you haven’t thought it out”</p>
+<p>this is a space my team is actively investing time into to make sure we can integrate and support any effort to create a tool that helps data scientist make sure the models they deploy have given a holistic view to their model</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-thinking-about-making-good-models-1" class="slide level2">
+<h2>MLOps is… <strong>thinking about making good models</strong></h2>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>vetiver.vetiver_pin_write(board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<pre><code>Model Cards provide a framework for transparent, responsible reporting. 
+ Use the vetiver `.qmd` Quarto template as a place to start, 
+ with vetiver.model_card()</code></pre>
+<aside class="notes">
+<p>created by people who left google</p>
+<p>documents</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+</section>
+<section id="mlops-is-thinking-about-making-good-models-2" class="slide level2">
+<h2>MLOps is… <strong>thinking about making good models</strong></h2>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>vetiver.model_card()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>partially automated (pieces that we can), uses Quarto, a platform for technical documentation and communication (actually, fun fact, my slides are also made in quarto)</p>
+<p>looks at a model quantitatively and also qualitativvely</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="section-36" class="slide level2">
+<h2></h2>
+
+<img data-src="images/title.png" class="r-stretch"></section>
+<section id="section-37" class="slide level2">
+<h2></h2>
+
+<img data-src="images/quant.png" class="r-stretch"></section>
+<section id="section-38" class="slide level2">
+<h2></h2>
+
+<img data-src="images/ethics.png" class="r-stretch"><aside class="notes">
+<p>my model doesn’t have any ethical challenges, it’s predicting youtube likes</p>
+<ul>
+<li>However, we strongly advise that instead of deleting any such section because you have incomplete or imprecise information, you note your own process and considerations.</li>
+<li>Also, consider the possibility of gathering feedback from those impacted by the machine learning system, especially those with marginalized identities.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-thinking-about-making-good-models-3" class="slide level2">
+<h2>MLOps is… <strong>thinking about making good models</strong></h2>
+<p>From Mitchell et al.&nbsp;(2019):</p>
+<div class="r-fit-text">
+<blockquote>
+<p><em>Therefore the usefulness and accuracy of a model card relies on the integrity of the creator(s) of the card itself.</em></p>
+</blockquote>
+</div>
+<aside class="notes">
+<p>The process of documenting the extent and limits of a machine learning system is part of transparent, responsible reporting.</p>
+<p>A model card framework such as this is a helpful tool and some parts of a model card can be automated, but ultimately the extent of its value depends on you.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section id="from-the-ground-up-1" class="title-slide slide level1 center">
+<h1>from the ground up</h1>
+<ul>
+<li>what is MLOps anyway (and how can I start)? 🐶 ✅</li>
+<li>what do I need to keep in mind for tooling? 🔨</li>
+</ul>
+<aside class="notes">
+<p>from this, hopefully you are fairly oriented to what MLOps is, and what practices are helping you deploy models!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section>
+<section id="section-39" class="title-slide slide level1 center">
+<h1></h1>
+<center>
+🔨
+</center>
+</section>
+<section id="tooling-tips" class="slide level2">
+<h2>Tooling tips…</h2>
+
+<img data-src="https://46eybw2v1nh52oe80d3bi91u-wpengine.netdna-ssl.com/wp-content/uploads/2021/12/Data-and-AI-Landscape-2021-v3-small-1024x530.jpg" class="r-stretch quarto-figure-center"><aside class="notes">
+<p>the landscape is vast! choosing the right tool is important, and can be difficult. there’s no one size fits all method for MLOps.</p>
+<p>from a tool builders perspective, there’s a lot that i want to have in my project. i have a list of features i want to add thats larger than i am, but i have some core principles that i keep in mind when</p>
+<p>i make data science tools, but i also have spent a lot of time looking at tools, and here’s a few of my takeaways</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tooling-tips-1" class="slide level2">
+<h2>Tooling tips…</h2>
+<p>you (and your team!) are unique!</p>
+<aside class="notes">
+<p>before you dive into tools, its really important to recognize that teams are at different points of their MLOps journey. not every team needs a huuuuge pipeline to move data to some multicloud environment. maybe a big win for your team is to even start versioning your models, even if its just locally.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tooling-tips-2" class="slide level2">
+<h2>Tooling tips…</h2>
+<ul>
+<li>composable
+<ul>
+<li>in different environments</li>
+<li>with other tools</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>one thing i think about a lot is how does the software i build work in different scenarios, because each team has unique needs. not only do i want this software to work in different environments–say, in different clouds. not only do i want to make sure that my open source software has first class support for the products directly builds, but I want to make sure users can easily make an <code>app.py</code> or <code>Dockerfile</code> to bring to a public or private cloud</p>
+<p>not only different environments, but i want my tools to work well with other tools. if you’re familiar with python, you can think about how pandas creates a dataframe to clean data and scikit learn uses the same dataframe data structures to model the data. the data science landscape in python would look very different if these two tools did not have pieces that worked as a natural extension of each other. in the same way, you can use vetiver alone to do the tasks of versioning, deploying, and monitoring, but also add in other softwares if you would like to do more.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tooling-tips-3" class="slide level2">
+<h2>Tooling tips…</h2>
+<ul>
+<li>composable</li>
+<li>reproducible
+<ul>
+<li>open source 💖</li>
+</ul></li>
+</ul>
+<aside class="notes">
+<p>i can point to about 1000 different ways reproduciblility is important in machine learning, especially MLOps.</p>
+<p>however, i really want to highlight the value of open source tools here.</p>
+<p>we all saw that landscape a few slides ago, there’s a lot of options out there! MLOps is a happening field right now</p>
+<p>from a business perspective: open source is foreeeverrrr - free! - outlasts a company’s lifetime - outlasts your company’s subscription</p>
+<p>from a human perspective: open source is for everyonee - free! - equitable if you have an internet connection, you can build the skills, be part of an amazing technical community</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tooling-tips-4" class="slide level2">
+<h2>Tooling tips…</h2>
+<ul>
+<li>composable</li>
+<li>reproducible</li>
+<li>ergonomic</li>
+</ul>
+
+<img data-src="http://worrydream.com/ABriefRantOnTheFutureOfInteractionDesign/Images/Tool1.png" class="r-stretch quarto-figure-center"><aside class="notes">
+<p>your NEED is that you are ready to implement some MLOps practices</p>
+<p>your tool help you do that by some magic of engineering</p>
+<p>but, we are humans, not robots! we need a tool that feels natural to help us complete the task</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tooling-tips-5" class="slide level2">
+<h2>Tooling tips…</h2>
+<ul>
+<li>composable</li>
+<li>reproducible</li>
+<li>ergonomic</li>
+</ul>
+
+<img data-src="http://worrydream.com/ABriefRantOnTheFutureOfInteractionDesign/Images/Tool2.png" class="r-stretch quarto-figure-center"><aside class="notes">
+<p>your tool needs to “fit the person.” people need some sort of tool that is ergonomic, feels GOOD to use.</p>
+<p>vetiver is a tool made especially with data scientists in mind. it should feel like a natural extension of their workflow, using the model objects that they are creating in python or R. this is also making a straightforward point of entry to get started with the tool, but the ability to extend these modular functions to be quite complex.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tooling-tips-6" class="slide level2">
+<h2>Tooling tips…</h2>
+<ul>
+<li>composable</li>
+<li>reproducible</li>
+<li>ergonomic</li>
+</ul>
+<p>(and able to do the MLOps tasks we want)</p>
+<aside class="notes">
+<p>MLOps definitely covers a lot of ground. there’s tools that focus on experiment tracking or maybe just pipelines, or other pieces</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section id="from-the-ground-up-2" class="title-slide slide level1 center">
+<h1>from the ground up</h1>
+<ul>
+<li>what is MLOps anyway (and how can I start)? 🐶 ✅</li>
+<li>what do I need to keep in mind for tooling? 🔨 ✅</li>
+</ul>
+</section>
+<section id="mlops-is-2" class="slide level2">
+<h2>MLOps is…</h2>
+<p>a set of <u>practices</u> to <em>deploy</em> and <em>maintain</em> machine learning models in production <strong>reliably</strong> and <strong>efficiently</strong></p>
+<div>
+<ul>
+<li class="fragment"><p>versioning</p></li>
+<li class="fragment"><p>deploying</p></li>
+<li class="fragment"><p>monitoring</p></li>
+</ul>
+</div>
+<div class="fragment">
+<p><code>vetiver</code> can help with this for your R and Python models!</p>
+</div>
+</section>
+<section id="where-does-vetiver-work" class="slide level2">
+<h2>Where does vetiver work?</h2>
+<div>
+<ul>
+<li class="fragment"><p>RStudio’s pro products, like <a href="https://www.rstudio.com/products/connect/">Connect</a></p></li>
+<li class="fragment"><p>A public or private cloud, using Docker</p></li>
+</ul>
+</div>
+</section>
+<section id="learn-more" class="slide level2">
+<h2>Learn more</h2>
+<div>
+<ul>
+<li class="fragment"><p>Documentation at <a href="https://vetiver.rstudio.com/" class="uri">https://vetiver.rstudio.com/</a></p></li>
+<li class="fragment"><p>Talk from rstudio::conf() 2022 on <a href="https://www.rstudio.com/conference/2022/talks/demystifying-mlops/">Demystifying MLOps</a> 🍪</p></li>
+<li class="fragment"><p>Recent screencast on <a href="https://youtu.be/5s7fI4cl2C8">deploying a model with Docker</a></p></li>
+<li class="fragment"><p>End-to-end demos from RStudio Solutions Engineering in <a href="https://github.com/sol-eng/bike_predict">R</a> and <a href="https://github.com/sol-eng/bike_predict_python">Python</a></p></li>
+</ul>
+</div>
+
+<div class="footer footer-default">
+
+</div>
+</section></section>
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="site_libs/revealjs/plugin/multiplex/socket.io.js"></script>
+  <script src="site_libs/revealjs/plugin/multiplex/multiplex.js"></script>
+  <script src="site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'smaller': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'multiplex': {"secret":null,"id":"41392eb842f6297b","url":"https://reveal-multiplex.glitch.me/"},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const clipboard = new window.ClipboardJS('.code-copy-button', {
+        target: function(trigger) {
+          return trigger.previousElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        setTimeout(function() {
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      });
+      function tippyHover(el, contentFn) {
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto-reveal',
+          placement: 'bottom-start'
+        };
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          return note.innerHTML;
+        });
+      }
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    });
+    </script>
+    
+
+</body></html>

@@ -1,0 +1,25 @@
+api_version: 1
+created: 20221003T123443Z
+description: Scikit-learn <class 'sklearn.ensemble._forest.RandomForestRegressor'>
+  model
+file: chicago_ridership.joblib
+file_size: 32256766
+pin_hash: a28ef2c01bc29261
+title: 'chicago_ridership: a pinned RandomForestRegressor object'
+type: joblib
+user:
+  ptype: '{"Austin": 0.604, "Quincy_Wells": 1.662, "Belmont": 1.936, "Archer_35th":
+    0.949, "Oak_Park": 0.458, "Western": 1.04, "Clark_Lake": 3.665, "Clinton": 0.961,
+    "Merchandise_Mart": 0.529, "Irving_Park": 1.567, "Washington_Wells": 0.827, "Harlem":
+    0.933, "Monroe": 1.25, "Polk": 0.669, "Ashland": 0.534, "Kedzie": 1.112, "Addison":
+    1.162, "Jefferson_Park": 2.441, "Montrose": 0.603, "California": 0.421, "temp_min":
+    55.0, "temp": 63.05, "temp_max": 79.0, "temp_change": 24.0, "dew": 40.45, "humidity":
+    46.5, "pressure": 30.15, "pressure_change": 0.109999999999999, "wind": 9.8, "wind_max":
+    17.3, "gust": 0.0, "gust_max": 27.6, "percip": 0.0, "percip_max": 0.0, "weather_rain":
+    0.0, "weather_snow": 0.0, "weather_cloud": 0.692307692307692, "weather_storm":
+    0.115384615384615, "Blackhawks_Away": 0.0, "Blackhawks_Home": 0.0, "Bulls_Away":
+    0.0, "Bulls_Home": 0.0, "Bears_Away": 0.0, "Bears_Home": 0.0, "WhiteSox_Away":
+    1.0, "WhiteSox_Home": 1.0, "Cubs_Away": 1.0, "Cubs_Home": 1.0}'
+  required_pkgs:
+  - vetiver
+  - scikit-learn

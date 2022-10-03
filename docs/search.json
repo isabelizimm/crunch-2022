@@ -1,0 +1,142 @@
+[
+  {
+    "objectID": "index.html#mlops-is-1",
+    "href": "index.html#mlops-is-1",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is…",
+    "text": "MLOps is…\n\nWhat practices should you be using? What tools are there to help make these practices work for your team?"
+  },
+  {
+    "objectID": "index.html#mlops-is-versioning",
+    "href": "index.html#mlops-is-versioning",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is… versioning",
+    "text": "MLOps is… versioning\nmodel\n\nmodel_final\n\n\nmodel_final_v2\n\n\nmodel_final_v2_ACTUALLY\n\nlacks context not scalable\na model version usually includes the model object, a hash for a robust and scalable version, and some metadata"
+  },
+  {
+    "objectID": "index.html#mlops-is-versioning-1",
+    "href": "index.html#mlops-is-versioning-1",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is… versioning",
+    "text": "MLOps is… versioning\nmanaging change in models\n\nacross time (model_final, model_final_2). this is also important if you have different implementations– for example, staging and production.\nwe saw how versioning might be useful across time. might need to update a model days, or months from now, so it helps to have structure and context around how you version.\nreally, anytime you have multiple models saved, some sort of versioning will help organize your models, making them easier to organize for yourself, share with your team members, and manage later on."
+  },
+  {
+    "objectID": "index.html#mlops-is-versioning-2",
+    "href": "index.html#mlops-is-versioning-2",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is… versioning",
+    "text": "MLOps is… versioning\nwhere are these models going?\n\n\nmodel registries\n\n\nyouve probably heard of the statistic that 85 % of models don’t make it to production, that is, they don’t get deployed, and some people try to say that this is a reason why we need MLOps tools. you might update a model tens of times before it is truly ready for production.\nwhile we do need MLOps tools, the fact that most models don’t make it to production might be a good thing (in a cost saving sense as well as model quality sense).\nmodel is versioned, but still on a local machine where whould it go to be easily accessed to many people?\nyou can store them somewhere…maybe a model registry! this is a centralized location for many models to be stored. however, model registries are storing the model, not running the model. you still need to download them or do some sort of operation to actually make a prediction, which is a pretty clunky workflow\nwhich leads us to…"
+  },
+  {
+    "objectID": "index.html#mlops-is-deploying",
+    "href": "index.html#mlops-is-deploying",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is… deploying",
+    "text": "MLOps is… deploying"
+  },
+  {
+    "objectID": "index.html#mlops-is-deploying-1",
+    "href": "index.html#mlops-is-deploying-1",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is… deploying",
+    "text": "MLOps is… deploying\nwhat is deployment?"
+  },
+  {
+    "objectID": "index.html#mlops-is-deploying-2",
+    "href": "index.html#mlops-is-deploying-2",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is… deploying",
+    "text": "MLOps is… deploying\nhosting models somewhere that is not on your local laptop\n\nthe IDEA of data science workflows are directly opposite of software engineering best practices. where software engineers are interested in robust applications and strong testing and absolute certainty that something will behave as expected, data science requries agility and experimental behavior"
+  },
+  {
+    "objectID": "index.html#mlops-is-deploying-3",
+    "href": "index.html#mlops-is-deploying-3",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is… deploying",
+    "text": "MLOps is… deploying\nputting models in REST APIs\n\nnow, you could certainly use a stored procedure in a database\nREST APIs are useful since they are endpoints that can be hosted in different computational environments"
+  },
+  {
+    "objectID": "index.html#mlops-is-monitoring",
+    "href": "index.html#mlops-is-monitoring",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is… monitoring",
+    "text": "MLOps is… monitoring"
+  },
+  {
+    "objectID": "index.html#mlops-is-monitoring-1",
+    "href": "index.html#mlops-is-monitoring-1",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is… monitoring",
+    "text": "MLOps is… monitoring\n\n\nmodel drift when your model’s performance metrics start decaying. this is SO IMPORTANT TO TRACK. models fail silently! and they can still run with no error, even if your accuracy is zero percent–\nif you are not monitoring your model in some way, you are oblivious to decay."
+  },
+  {
+    "objectID": "index.html#mlops-is-monitoring-2",
+    "href": "index.html#mlops-is-monitoring-2",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is… monitoring",
+    "text": "MLOps is… monitoring\ntracking model performance\n\nif performance is declining, - retraining model? - new model type altogether?\nif you are using model versioning, it becomes easier to roll back to the latest version"
+  },
+  {
+    "objectID": "index.html#tooling-tips",
+    "href": "index.html#tooling-tips",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "Tooling tips…",
+    "text": "Tooling tips…\n\n\nthe landscape is vast! choosing the right tool is important, and can be difficult. there’s no one size fits all method for MLOps.\nbefore you dive into tools, its really important to recognize that teams are at different points of their MLOps journey. not every team needs a huuuuge pipeline to move data to some multicloud environment. maybe a big win for your team is to even start versioning your models, even if its just locally.\nfrom a tool builders perspective, there’s a lot that i want to have in my project. i have a list of features i want to add thats larger than i am, but i have some core principles that i keep in mind when"
+  },
+  {
+    "objectID": "index.html#tooling-tips-1",
+    "href": "index.html#tooling-tips-1",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "Tooling tips…",
+    "text": "Tooling tips…\n\ncomposable\n\nin different environments\nwith other tools\n\n\n\none thing i think about a lot is how does the software i build work in different scenarios, because each team has unique needs. not only do i want this software to work in different environments–say, in different clouds. not only do i want to make sure that my open source software has first class support for the products directly builds, but I want to make sure users can easily make an app.py or Dockerfile to bring to a public or private cloud\nnot only different environments, but i want my tools to work well with other tools. if you’re familiar with python, you can think about how pandas creates a dataframe to clean data and scikit learn uses the same dataframe data structures to model the data. the data science landscape in python would look very different if these two tools did not have pieces that worked as a natural extension of each other. in the same way, you can use vetiver alone to do the tasks of versioning, deploying, and monitoring, but also add in other softwares if you would like to do more."
+  },
+  {
+    "objectID": "index.html#tooling-tips-2",
+    "href": "index.html#tooling-tips-2",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "Tooling tips…",
+    "text": "Tooling tips…\n\ncomposable\nstability\n\nin helping create stable workflows\nin the tool itself\n\n\n\ni can point to about 1000 different ways stability is important in MLOps.\nhowever, i really want to highlight two pieces. the first is, keeping the development and production evironment as similar as possible, or as agile as possible.\nfor the tools itself, this is my favorite moment where i get to tell everyone how important open source tools are. of course there are many many proprietary softwares that can do MLOps. for long term reproducibility, the ability to continue running your MLOps tasks even after your company’s subscription to something is available"
+  },
+  {
+    "objectID": "index.html#tooling-tips-3",
+    "href": "index.html#tooling-tips-3",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "Tooling tips…",
+    "text": "Tooling tips…\n\ncomposable\nreproducible\nreadable\n\n\n\nyour NEED is that you are ready to implement some MLOps practices\nyour tool help you do that by some magic of engineering\nbut, we are humans, not robots! we need a tool that feels natural to help us complete the task"
+  },
+  {
+    "objectID": "index.html#tooling-tips-4",
+    "href": "index.html#tooling-tips-4",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "Tooling tips…",
+    "text": "Tooling tips…\n\ncomposable\nreproducible\nergonomic\n\n\n\nyour tool needs to “fit the person.” people need some sort of tool that is ergonomic, feels GOOD to use.\nvetiver is a tool made especially with data scientists in mind. it should feel like a natural extension of their workflow, using the model objects that they are creating in python or R. this is also making a straightforward point of entry to get started with the tool, but the ability to extend these modular functions to be quite complex."
+  },
+  {
+    "objectID": "index.html#tooling-tips-5",
+    "href": "index.html#tooling-tips-5",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "Tooling tips…",
+    "text": "Tooling tips…\n\ncomposable\nreproducible\nergonomic\n\n(and able to do the MLOps tasks we want)"
+  },
+  {
+    "objectID": "index.html#mlops-is-2",
+    "href": "index.html#mlops-is-2",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "MLOps is…",
+    "text": "MLOps is…\na set of practices to deploy and maintain machine learning models in production reliably and efficiently\n\n\nversioning\ndeploying\nmonitoring\n\n\n\nvetiver can help with this for your R and Python models!"
+  },
+  {
+    "objectID": "index.html#where-does-vetiver-work",
+    "href": "index.html#where-does-vetiver-work",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "Where does vetiver work?",
+    "text": "Where does vetiver work?\n\n\nRStudio’s pro products, like Connect\nA public or private cloud, using Docker"
+  },
+  {
+    "objectID": "index.html#learn-more",
+    "href": "index.html#learn-more",
+    "title": "Building an MLOps strategy from the ground up",
+    "section": "Learn more",
+    "text": "Learn more\n\n\nDocumentation at https://vetiver.rstudio.com/\nTalk from rstudio::conf() 2022 on Demystifying MLOps 🍪\nRecent screencast on deploying a model with Docker\nEnd-to-end demos from RStudio Solution Engineering in R and Python"
+  }
+]
