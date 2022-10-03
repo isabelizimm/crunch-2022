@@ -6,7 +6,6 @@ date: "September 20, 2022"
 format:
   revealjs: 
     slide-number: true
-    multiplex: true
     preview-links: auto
     theme: [simple, custom.scss]
     multiplex: true
