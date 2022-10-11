@@ -416,6 +416,19 @@
 
 <section id="from-the-ground-up" class="title-slide slide level1 center">
 <h1>from the ground up</h1>
+<div class="callout callout-tip callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>go to <a href="https://isabel.quarto.pub/crunch2022">isabel.quarto.pub/crunch2022/</a> to follow along!</p>
+</div>
+</div>
+</div>
 <div>
 <ul>
 <li class="fragment">what is MLOps anyway (and how can I start)? 🐶</li>
@@ -426,18 +439,14 @@
 
 <section id="section" class="title-slide slide level1 center">
 <h1></h1>
-<center>
-🐶
-</center>
-<aside class="notes">
+
+<img data-src="images/toast.jpg" class="r-stretch"><aside class="notes">
 <p>hi im isabel</p>
 <p>started my career as a software engineer/data scientist, working on operationalizing models, mostly in kubernetes environments. if you know anything about k8s, they can be a little frustrating. so, giving my brain a break, i started training my little dog named toast to do tricks.</p>
 <p>when first taught my dog to sit, stood in front of him…</p>
-<p>go for a walk, side</p>
-<p>sit sit sit!!!! doesn’t sit</p>
 <p>now, as a data scientist, i realized i had not trained my dog very well. he only knew sit when i was standing in front of him.</p>
+<p>go for a walk, side</p>
 <p>back home in my local environment, side</p>
-<p>sit sit sit!! huh, then sits</p>
 <p>toast taught me a hard lesson. even if youre training for the right outcome, sitting, being out of my house brought a new set of challenges, and he behaved differently</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -478,12 +487,16 @@
 <h1></h1>
 <div class="r-fit-text">
 <p>if you develop models…</p>
-<p>you <em>should</em> operationalize them*</p>
+<p>you <em>should</em> operationalize them</p>
 </div>
 <div class="fragment">
-<p>*well, some of them</p>
+<p>well, some of them</p>
 <aside class="notes">
 <p>in fact, i’ll go so far as to say this</p>
+<ul>
+<li><p>85 % of models don’t make it to production, that is, they don’t get deployed, and some people try to say that this is a reason why we need MLOps tools. you might update a model tens of times before it is truly ready for production.</p></li>
+<li><p>might be a good thing (in a cost saving sense as well as model quality sense).</p></li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -560,8 +573,12 @@
 <div class="fragment">
 <p>a set of <u>practices</u> to <em>deploy</em> and <em>maintain</em> machine learning models in production <strong>reliably</strong> and <strong>efficiently</strong></p>
 <aside class="notes">
-<p>and these practices can be HARD. i said i started with kubernetes + models. after a while where i STRUGGLED with the tools at hand, i felt that, as a data scientist, the tools were not built for me. they were built for a software engineer that had pretty deep knowledge of infrastructure–and i needed to productionalize models, but i didn’t want to have to be a cloud architect as well a data scientist.</p>
-<p>so i changed career paths to build new tools designed specifically for data scientists to deploy models. my current role is to develop an open source package called vetiver, which is an mlops framework to help data scientists do model operations better in R and Python</p>
+<p>. . . and these practices can be HARD.</p>
+<ul>
+<li><p>i said i started with kubernetes + models. after a while where i STRUGGLED with the tools at hand, i felt that, as a data scientist, the tools were not built for me. they were built for a software engineer that had pretty deep knowledge of infrastructure–and i needed to productionalize models, but i didn’t want to have to be a cloud architect as well a data scientist.</p></li>
+<li><p>so i changed career paths to build new tools designed specifically for data scientists to deploy models. my current role is to develop an open source package called</p></li>
+<li><p>vetiver, which is an mlops framework to help data scientists in R and Python</p></li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -577,48 +594,6 @@
 </section>
 
 <section id="section-5" class="title-slide slide level1 center">
-<h1></h1>
-<table>
-<colgroup>
-<col style="width: 50%">
-<col style="width: 49%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>R</th>
-<th>Python</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>vetiver_model()</code> <code>new_vetiver_model()</code></td>
-<td><code>VetiverModel()</code></td>
-</tr>
-<tr class="even">
-<td><code>vetiver_pin_write()</code> <code>vetiver_pin_read()</code></td>
-<td><code>vetiver_pin_write()</code> <code>VetiverModel.from_pin()</code></td>
-</tr>
-<tr class="odd">
-<td><code>vetiver_api()</code> <code>vetiver_pr_post()</code></td>
-<td><code>VetiverAPI()</code> <code>VetiverAPI.vetiver_post()</code></td>
-</tr>
-<tr class="even">
-<td><code>vetiver_write_plumber()</code></td>
-<td><code>write_app()</code></td>
-</tr>
-<tr class="odd">
-<td><code>vetiver_compute_metrics()</code></td>
-<td><code>compute_metrics()</code></td>
-</tr>
-<tr class="even">
-<td><code>vetiver_pin_metrics()</code></td>
-<td><code>pin_metrics()</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-
-<section id="section-6" class="title-slide slide level1 center">
 <h1></h1>
 
 <img data-src="images/ml_ops_cycle_no_ops.png" class="r-stretch"><aside class="notes">
@@ -636,7 +611,7 @@
       }</style></aside>
 </section>
 
-<section id="section-7" class="title-slide slide level1 center" data-auto-animate="true">
+<section id="section-6" class="title-slide slide level1 center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title"></h1>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a href="#cb3-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -646,7 +621,7 @@
 </div>
 </section>
 
-<section id="section-8" class="title-slide slide level1 center" data-auto-animate="true">
+<section id="section-7" class="title-slide slide level1 center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title"></h1>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb4-1" class="hljs-ln-code"><a href="#cb4-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -686,7 +661,7 @@
 </div>
 </section>
 
-<section id="section-9" class="title-slide slide level1 center" data-auto-animate="true">
+<section id="section-8" class="title-slide slide level1 center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title"></h1>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb6-1" class="hljs-ln-code"><a href="#cb6-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -703,7 +678,7 @@
 </div>
 </section>
 
-<section id="section-10" class="title-slide slide level1 center" data-auto-animate="true">
+<section id="section-9" class="title-slide slide level1 center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title"></h1>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb7-1" class="hljs-ln-code"><a href="#cb7-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -718,12 +693,12 @@
 <span id="cb7-10" class="hljs-ln-code"><a href="#cb7-10"></a>    test_size<span class="op">=</span><span class="fl">0.2</span></span>
 <span id="cb7-11" class="hljs-ln-code"><a href="#cb7-11"></a>)</span>
 <span id="cb7-12" class="hljs-ln-code"><a href="#cb7-12"></a></span>
-<span id="cb7-13" class="hljs-ln-code"><a href="#cb7-13"></a>le <span class="op">=</span> preprocessing.OrdinalEncoder().fit(X_train)</span>
-<span id="cb7-14" class="hljs-ln-code"><a href="#cb7-14"></a>rf <span class="op">=</span> ensemble.RandomForestRegressor().fit(le.transform(X_train), y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-13" class="hljs-ln-code"><a href="#cb7-13"></a>oe <span class="op">=</span> preprocessing.OrdinalEncoder().fit(X_train)</span>
+<span id="cb7-14" class="hljs-ln-code"><a href="#cb7-14"></a>rf <span class="op">=</span> ensemble.RandomForestRegressor().fit(oe.transform(X_train), y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 
-<section id="section-11" class="title-slide slide level1 center" data-auto-animate="true">
+<section id="section-10" class="title-slide slide level1 center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title"></h1>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb8-1" class="hljs-ln-code"><a href="#cb8-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -746,7 +721,7 @@
 </section>
 
 <section>
-<section id="section-12" class="title-slide slide level1 center">
+<section id="section-11" class="title-slide slide level1 center">
 <h1></h1>
 
 <img data-src="images/ml_ops_cycle.png" class="r-stretch"><aside class="notes">
@@ -811,115 +786,23 @@
           display:block!important;
       }</style></aside>
 </section></section>
-<section id="section-13" class="title-slide slide level1 center">
-<h1></h1>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> pins</span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
-<span id="cb9-4"><a href="#cb9-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<aside class="notes">
-<p>pins is a project my team built, also in R</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-
-<section id="section-14" class="title-slide slide level1 center">
-<h1></h1>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> pins</span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a>model_board <span class="op">=</span> pins.board_local(</span>
-<span id="cb10-4"><a href="#cb10-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-
-<section id="section-15" class="title-slide slide level1 center">
-<h1></h1>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="im">import</span> pins</span>
-<span id="cb11-2"><a href="#cb11-2"></a></span>
-<span id="cb11-3"><a href="#cb11-3"></a>model_board <span class="op">=</span> pins.board_s3(</span>
-<span id="cb11-4"><a href="#cb11-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<aside class="notes">
-<p>amazon web services</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-
-<section id="section-16" class="title-slide slide level1 center">
-<h1></h1>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">import</span> pins</span>
-<span id="cb12-2"><a href="#cb12-2"></a></span>
-<span id="cb12-3"><a href="#cb12-3"></a>model_board <span class="op">=</span> pins.board_gcs(</span>
-<span id="cb12-4"><a href="#cb12-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<aside class="notes">
-<p>google cloud storage</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-
-<section id="section-17" class="title-slide slide level1 center">
-<h1></h1>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="im">import</span> pins</span>
-<span id="cb13-2"><a href="#cb13-2"></a></span>
-<span id="cb13-3"><a href="#cb13-3"></a>model_board <span class="op">=</span> pins.board_azure(</span>
-<span id="cb13-4"><a href="#cb13-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<aside class="notes">
-<p>microsoft azure blob storage</p>
-<p>now, these will require a few more arguments for credentials</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-
-<section id="section-18" class="title-slide slide level1 center" data-auto-animate="true">
+<section id="section-12" class="title-slide slide level1 center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title"></h1>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb14-1" class="hljs-ln-code"><a href="#cb14-1"></a><span class="im">import</span> pins</span>
-<span id="cb14-2" class="hljs-ln-code"><a href="#cb14-2"></a></span>
-<span id="cb14-3" class="hljs-ln-code"><a href="#cb14-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
-<span id="cb14-4" class="hljs-ln-code"><a href="#cb14-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb14-5" class="hljs-ln-code"><a href="#cb14-5"></a></span>
-<span id="cb14-6" class="hljs-ln-code"><a href="#cb14-6"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, vetiver_pin_write</span>
-<span id="cb14-7" class="hljs-ln-code"><a href="#cb14-7"></a></span>
-<span id="cb14-8" class="hljs-ln-code"><a href="#cb14-8"></a>v <span class="op">=</span> VetiverModel(rf_pipe, <span class="st">"ads"</span>, ptype_data <span class="op">=</span> X_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb9-1" class="hljs-ln-code"><a href="#cb9-1"></a><span class="im">import</span> pins</span>
+<span id="cb9-2" class="hljs-ln-code"><a href="#cb9-2"></a></span>
+<span id="cb9-3" class="hljs-ln-code"><a href="#cb9-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
+<span id="cb9-4" class="hljs-ln-code"><a href="#cb9-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb9-5" class="hljs-ln-code"><a href="#cb9-5"></a></span>
+<span id="cb9-6" class="hljs-ln-code"><a href="#cb9-6"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, vetiver_pin_write</span>
+<span id="cb9-7" class="hljs-ln-code"><a href="#cb9-7"></a></span>
+<span id="cb9-8" class="hljs-ln-code"><a href="#cb9-8"></a>v <span class="op">=</span> VetiverModel(rf_pipe, <span class="st">"ads"</span>, ptype_data <span class="op">=</span> X_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
 <p>deployable model object</p>
 <p>using the model object– however youre getting data can stay the same! however you are modeling can stay the same!</p>
 <p>data prototype - a common failure point is deployed data looks different</p>
+<p>deploying the WHOLE PIPELINE - had to fit the preprocessor too, otherwise you will be overestimating your models performance</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -933,35 +816,35 @@
       }</style></aside>
 </section>
 
-<section id="section-19" class="title-slide slide level1 center" data-auto-animate="true">
+<section id="section-13" class="title-slide slide level1 center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title"></h1>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Python</a></li><li><a href="#tabset-1-2">R</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="im">import</span> pins</span>
-<span id="cb15-2"><a href="#cb15-2"></a></span>
-<span id="cb15-3"><a href="#cb15-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
-<span id="cb15-4"><a href="#cb15-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb15-5"><a href="#cb15-5"></a></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, vetiver_pin_write</span>
-<span id="cb15-7"><a href="#cb15-7"></a></span>
-<span id="cb15-8"><a href="#cb15-8"></a>v <span class="op">=</span> VetiverModel(rf_pipe, <span class="st">"ads"</span>, ptype_data <span class="op">=</span> X_train)</span>
-<span id="cb15-9"><a href="#cb15-9"></a></span>
-<span id="cb15-10"><a href="#cb15-10"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">import</span> pins</span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
+<span id="cb10-4"><a href="#cb10-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, vetiver_pin_write</span>
+<span id="cb10-7"><a href="#cb10-7"></a></span>
+<span id="cb10-8"><a href="#cb10-8"></a>v <span class="op">=</span> VetiverModel(rf_pipe, <span class="st">"ads"</span>, ptype_data <span class="op">=</span> X_train)</span>
+<span id="cb10-9"><a href="#cb10-9"></a></span>
+<span id="cb10-10"><a href="#cb10-10"></a>vetiver_pin_write(model_board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-2">
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(vetiver)</span>
-<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">library</span>(pins)</span>
-<span id="cb16-3"><a href="#cb16-3"></a></span>
-<span id="cb16-4"><a href="#cb16-4"></a>model_board <span class="ot">&lt;-</span> <span class="fu">board_temp</span>()</span>
-<span id="cb16-5"><a href="#cb16-5"></a></span>
-<span id="cb16-6"><a href="#cb16-6"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(model, <span class="st">"ads"</span>)</span>
-<span id="cb16-7"><a href="#cb16-7"></a></span>
-<span id="cb16-8"><a href="#cb16-8"></a>model_board <span class="sc">%&gt;%</span> </span>
-<span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(vetiver)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">library</span>(pins)</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a>model_board <span class="ot">&lt;-</span> <span class="fu">board_temp</span>()</span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a>v <span class="ot">&lt;-</span> <span class="fu">vetiver_model</span>(model, <span class="st">"ads"</span>)</span>
+<span id="cb11-7"><a href="#cb11-7"></a></span>
+<span id="cb11-8"><a href="#cb11-8"></a>model_board <span class="sc">%&gt;%</span> </span>
+<span id="cb11-9"><a href="#cb11-9"></a>  <span class="fu">vetiver_pin_write</span>(v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -981,114 +864,31 @@
 </section>
 
 <section>
-<section id="section-20" class="title-slide slide level1 center" data-auto-animate="true">
+<section id="section-14" class="title-slide slide level1 center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title"></h1>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb17-1" class="hljs-ln-code"><a href="#cb17-1"></a><span class="im">import</span> pins</span>
-<span id="cb17-2" class="hljs-ln-code"><a href="#cb17-2"></a></span>
-<span id="cb17-3" class="hljs-ln-code"><a href="#cb17-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
-<span id="cb17-4" class="hljs-ln-code"><a href="#cb17-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb17-5" class="hljs-ln-code"><a href="#cb17-5"></a></span>
-<span id="cb17-6" class="hljs-ln-code"><a href="#cb17-6"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, vetiver_pin_write</span>
-<span id="cb17-7" class="hljs-ln-code"><a href="#cb17-7"></a></span>
-<span id="cb17-8" class="hljs-ln-code"><a href="#cb17-8"></a>v <span class="op">=</span> VetiverModel(rf_pipe, <span class="st">"ads"</span>, ptype_data <span class="op">=</span> X_train)</span>
-<span id="cb17-9" class="hljs-ln-code"><a href="#cb17-9"></a></span>
-<span id="cb17-10" class="hljs-ln-code"><a href="#cb17-10"></a>vetiver_pin_write(model_board, v)</span>
-<span id="cb17-11" class="hljs-ln-code"><a href="#cb17-11"></a></span>
-<span id="cb17-12" class="hljs-ln-code"><a href="#cb17-12"></a>model_board.pin_meta(<span class="st">"ads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
-<pre><code>Meta(title='ads: a pinned Pipeline object', description="Scikit-learn &lt;class 'sklearn.pipeline.Pipeline'&gt; model", created='20221003T140058Z', pin_hash='595a9aaf6a10e3a8', file='ads.joblib', file_size=468706, type='joblib', api_version=1, version=Version(created=datetime.datetime(2022, 10, 3, 14, 0, 58), hash='595a9'), name='ads', user={'ptype': '{"funny": true, "show_product_quickly": true, "patriotic": false, "celebrity": false, "danger": true, "animals": false}', 'required_pkgs': ['vetiver', 'scikit-learn']})</code></pre>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb12-1" class="hljs-ln-code"><a href="#cb12-1"></a><span class="im">import</span> pins</span>
+<span id="cb12-2" class="hljs-ln-code"><a href="#cb12-2"></a></span>
+<span id="cb12-3" class="hljs-ln-code"><a href="#cb12-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
+<span id="cb12-4" class="hljs-ln-code"><a href="#cb12-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb12-5" class="hljs-ln-code"><a href="#cb12-5"></a></span>
+<span id="cb12-6" class="hljs-ln-code"><a href="#cb12-6"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, vetiver_pin_write</span>
+<span id="cb12-7" class="hljs-ln-code"><a href="#cb12-7"></a></span>
+<span id="cb12-8" class="hljs-ln-code"><a href="#cb12-8"></a>v <span class="op">=</span> VetiverModel(rf_pipe, <span class="st">"ads"</span>, ptype_data <span class="op">=</span> X_train)</span>
+<span id="cb12-9" class="hljs-ln-code"><a href="#cb12-9"></a></span>
+<span id="cb12-10" class="hljs-ln-code"><a href="#cb12-10"></a>vetiver_pin_write(model_board, v)</span>
+<span id="cb12-11" class="hljs-ln-code"><a href="#cb12-11"></a></span>
+<span id="cb12-12" class="hljs-ln-code"><a href="#cb12-12"></a>model_board.pin_meta(<span class="st">"ads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>Meta(title='ads: a pinned Pipeline object', description="Scikit-learn &lt;class 'sklearn.pipeline.Pipeline'&gt; model", created='20221004T090939Z', pin_hash='454449d2d3d007dd', file='ads.joblib', file_size=440162, type='joblib', api_version=1, version=Version(created=datetime.datetime(2022, 10, 4, 9, 9, 39), hash='45444'), name='ads', user={'ptype': '{"funny": false, "show_product_quickly": false, "patriotic": false, "celebrity": false, "danger": false, "animals": false}', 'required_pkgs': ['vetiver', 'scikit-learn']})</code></pre>
 </div>
 </div>
 </section>
 <section id="mlops-is-versioning-2" class="slide level2">
 <h2>MLOps is… <strong>versioning</strong></h2>
-<p>where are these models going?</p>
-<div class="fragment">
-<ul>
-<li>pin boards</li>
-<li>model registries</li>
-</ul>
+<p>where are these boards hosted?</p>
 <aside class="notes">
-<p>youve probably heard of the statistic that 85 % of models don’t make it to production, that is, they don’t get deployed, and some people try to say that this is a reason why we need MLOps tools. you might update a model tens of times before it is truly ready for production.</p>
-<p>while we do need MLOps tools, the fact that most models don’t make it to production might be a good thing (in a cost saving sense as well as model quality sense).</p>
-<p>model is versioned, but still on a local machine where whould it go to be easily accessed to many people?</p>
-<p>you can store them somewhere…maybe a model registry! this is a centralized location for many models to be stored. however, model registries are storing the model, not running the model. you still need to download them or do some sort of operation to actually make a prediction, which is a pretty clunky workflow</p>
-<p>which leads us to…</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-</section>
-<section id="mlops-is-deploying" class="slide level2">
-<h2>MLOps is… <strong>deploying</strong></h2>
-</section>
-<section id="mlops-is-deploying-1" class="slide level2">
-<h2>MLOps is… <strong>deploying</strong></h2>
-<p>putting a model in production</p>
-<div class="fragment">
-<p><em>uh, what’s production?</em></p>
-<aside class="notes">
-<p>deploying means many different things. in general, we say that deploying a model is putting a model in production</p>
-<p>uh, what is production?</p>
-<p>production can mean a lot of different things. in fact, you might have deployed a model without even knowing it</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</div>
-</section>
-<section id="mlops-is-deploying-2" class="slide level2">
-<h2>MLOps is… <strong>deploying</strong></h2>
-<p>putting a model <del>in production</del> somewhere that is not on your local laptop</p>
-<aside class="notes">
-<p>the IDEA of data science workflows are directly opposite of software engineering best practices. where software engineers are interested in robust applications and strong testing and absolute certainty that something will behave as expected, data science requires agility and experimental behavior</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="mlops-is-deploying-3" class="slide level2">
-<h2>MLOps is… <strong>deploying</strong></h2>
-<p>putting a model <del>in production</del> somewhere that is not on your local laptop</p>
-<div>
-<ul>
-<li class="fragment">REST APIs
-<ul>
-<li class="fragment">run on a local laptop</li>
-<li class="fragment">run inside a container, such as Docker</li>
-</ul></li>
-</ul>
-</div>
-<aside class="notes">
-<p>REST APIs (Representational state transfer application programming interface) are uniform interface between physically separate components. standardized way for machines to communicate to each other.</p>
-<p>&amp;&amp;&amp;</p>
-<p>tools like vetiver use pre-set interfaces such as open api specifications. these standards for how software programs communicate with each other help developers have to write less code to make different software programs work together seamlessly.</p>
-<p>REST APIs are useful since they are endpoints that can be hosted in different computational environments, independent of the application</p>
-<p>this makes the software engineering part of me very very happy, since decoupling the</p>
-<p>&amp;&amp;&amp;</p>
+<p>saw temp board, but its gone!</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1101,7 +901,170 @@
           display:block!important;
       }</style></aside>
 </section></section>
-<section id="section-21" class="title-slide slide level1 center">
+<section id="section-15" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="im">import</span> pins</span>
+<span id="cb14-2"><a href="#cb14-2"></a></span>
+<span id="cb14-3"><a href="#cb14-3"></a>model_board <span class="op">=</span> pins.board_temp(</span>
+<span id="cb14-4"><a href="#cb14-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>pins is a project my team built, also in R</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-16" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="im">import</span> pins</span>
+<span id="cb15-2"><a href="#cb15-2"></a></span>
+<span id="cb15-3"><a href="#cb15-3"></a>model_board <span class="op">=</span> pins.board_local(</span>
+<span id="cb15-4"><a href="#cb15-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+<section id="section-17" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="im">import</span> pins</span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a>model_board <span class="op">=</span> pins.board_s3(</span>
+<span id="cb16-4"><a href="#cb16-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>amazon web services</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section id="section-18" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="im">import</span> pins</span>
+<span id="cb17-2"><a href="#cb17-2"></a></span>
+<span id="cb17-3"><a href="#cb17-3"></a>model_board <span class="op">=</span> pins.board_gcs(</span>
+<span id="cb17-4"><a href="#cb17-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>google cloud storage</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+
+<section>
+<section id="section-19" class="title-slide slide level1 center">
+<h1></h1>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a><span class="im">import</span> pins</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a>model_board <span class="op">=</span> pins.board_azure(</span>
+<span id="cb18-4"><a href="#cb18-4"></a>    allow_pickle_read <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<aside class="notes">
+<p>microsoft azure blob storage</p>
+<p>you still need to download them or do some sort of operation to actually make a prediction, which is a pretty clunky workflow</p>
+<p>which leads us to… however, model registries are storing the model, not running the model.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-deploying" class="slide level2">
+<h2>MLOps is… <strong>deploying</strong></h2>
+</section>
+<section id="mlops-is-deploying-1" class="slide level2">
+<h2>MLOps is… <strong>deploying</strong></h2>
+<p>putting a model in production</p>
+<aside class="notes">
+<p>deploying means many different things. in general, we say that deploying a model is putting a model in production</p>
+<p>uh, what is production?</p>
+<p>production loooks different for different groups–if you’ve put a model inside an application that is running somewhere else, you’ve deployed a model!</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-deploying-2" class="slide level2">
+<h2>MLOps is… <strong>deploying</strong></h2>
+<p>putting a model <del>in production</del> somewhere that is not on your local laptop</p>
+</section>
+<section id="mlops-is-deploying-3" class="slide level2">
+<h2>MLOps is… <strong>deploying</strong></h2>
+<p>putting a model <del>in production</del> somewhere that is not on your local laptop</p>
+
+<img data-src="images/experiments.jpg" class="r-stretch"><aside class="notes">
+<p>the IDEA of data science workflows are directly opposite of software engineering best practices.</p>
+<p>where software engineers are interested in robust applications and strong testing and absolute certainty that something will behave as expected, data science requires agility and experimental behavior</p>
+<p>if we’re thinking of making an app, we don’t want to copy and paste machine learning code over into an app’s source code, or send emails with pickled models in them…</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="mlops-is-deploying-4" class="slide level2">
+<h2>MLOps is… <strong>deploying</strong></h2>
+<p>putting a model <del>in production</del> somewhere that is not on your local laptop</p>
+<p>✅ using REST APIs</p>
+
+<img data-src="images/ds_swe_party.jpg" class="r-stretch"><aside class="notes">
+<p>REST APIs (Representational state transfer application programming interface) are standardized ways for machines to communicate to each other.</p>
+<p>&amp;&amp;&amp;</p>
+<p>REST APIs are useful since they are endpoints that can be hosted in different computational environments, independent of the application</p>
+<p>this makes the software engineering part of me very very happy, since this can live stably, decoupled from</p>
+<p>they are testable,</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section id="section-20" class="title-slide slide level1 center">
 <h1></h1>
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="im">from</span> vetiver <span class="im">import</span> VetiverModel, VetiverAPI, vetiver_pin_write</span>
@@ -1124,7 +1087,7 @@
       }</style></aside>
 </section>
 
-<section id="section-22" class="title-slide slide level1 center">
+<section id="section-21" class="title-slide slide level1 center">
 <h1></h1>
 
 <img data-src="images/local_general.png" class="r-stretch"><aside class="notes">
@@ -1142,17 +1105,18 @@
       }</style></aside>
 </section>
 
-<section id="section-23" class="title-slide slide level1 center">
+<section id="section-22" class="title-slide slide level1 center">
 <h1></h1>
 
 <img data-src="images/local_predict.png" class="r-stretch"></section>
 
-<section id="section-24" class="title-slide slide level1 center">
+<section id="section-23" class="title-slide slide level1 center">
 <h1></h1>
 
 <img data-src="images/local.gif" class="r-stretch"><aside class="notes">
 <p>self documenting</p>
 <p>health endpoint, make sure everything is online</p>
+<p>but, this is still local! where can we move it</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1166,7 +1130,7 @@
       }</style></aside>
 </section>
 
-<section id="section-25" class="title-slide slide level1 center">
+<section id="section-24" class="title-slide slide level1 center">
 <h1></h1>
 <div class="sourceCode" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>vetiver.deploy_rsconnect(</span>
 <span id="cb20-2"><a href="#cb20-2"></a>    connect_server <span class="op">=</span> connect_server, </span>
@@ -1175,26 +1139,15 @@
 <span id="cb20-5"><a href="#cb20-5"></a>    version <span class="op">=</span> <span class="st">"59869"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
-<section id="section-26" class="title-slide slide level1 center">
-<h1></h1>
-
-<img data-src="images/local_general.png" class="r-stretch"></section>
-
-<section id="section-27" class="title-slide slide level1 center">
-<h1></h1>
-
-<img data-src="images/colorado_general.png" class="r-stretch"></section>
-
-<section id="section-28" class="title-slide slide level1 center">
+<section id="section-25" class="title-slide slide level1 center">
 <h1></h1>
 
 <img data-src="images/local_predict.png" class="r-stretch"></section>
 
-<section id="section-29" class="title-slide slide level1 center">
+<section id="section-26" class="title-slide slide level1 center">
 <h1></h1>
 
 <img data-src="images/colorado_predict.png" class="r-stretch"><aside class="notes">
-<p>besides me thinking this is kinda funny, this actually brings us to another great point</p>
 <p>things break pretty quickly when your development cycle acts or even feels differently than your production environment–this is a nod to the reproducibility of APIs, we wanted the APIs to look the same, even if they’re hosted in different locations</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1207,10 +1160,14 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
+</section>
+
+<section id="section-27" class="title-slide slide level1 center">
+<h1></h1>
 <div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>vetiver.write_app(board<span class="op">=</span>board, pin_name<span class="op">=</span><span class="st">"ads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
-<p>will create a file named app.py with all the information needed</p>
-<p>just a python script. it will run out of the box (pending you give it the right credentials)</p>
+<p>will create a file named app.py with all the information needed to start up an API</p>
+<p>just a python script. it will run out of the box</p>
 <p>for some cloud providers, this might be enough</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1226,13 +1183,12 @@
 </section>
 
 <section>
-<section id="section-30" class="title-slide slide level1 center">
+<section id="section-28" class="title-slide slide level1 center">
 <h1></h1>
 <div class="sourceCode" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>vetiver.write_app(board<span class="op">=</span>board, pin_name<span class="op">=</span><span class="st">"ads"</span>)</span>
 <span id="cb22-2"><a href="#cb22-2"></a>vetiver.write_docker(app_file<span class="op">=</span><span class="st">"app.py"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
 <p>maybe you’re a docker fan?</p>
-<p>just a python script. it will run out of the box (pending you give it the right credentials)</p>
 <p>docker is pretty well received by cloud providers, bring your own container philosophy</p>
 <p>currently working on explicit workflows for different cloud providers</p>
 <p>also working on specialized docker containers (AWS Lambda)</p>
@@ -1269,8 +1225,12 @@
 <section id="mlops-is-monitoring-1" class="slide level2">
 <h2>MLOps is… <strong>monitoring</strong></h2>
 
-<img data-src="images/drift.png" class="r-stretch"><aside class="notes">
-<p>model drift when your model’s performance metrics start decaying. this is SO IMPORTANT TO TRACK.</p>
+<img data-src="images/drift.jpg" class="r-stretch"></section>
+<section id="mlops-is-monitoring-2" class="slide level2">
+<h2>MLOps is… <strong>monitoring</strong></h2>
+
+<img data-src="images/silent_error.jpg" class="r-stretch"><aside class="notes">
+<p>it is SO IMPORTANT TO TRACK your model’s performance metrics start decaying.</p>
 <p>software engineering–when things went wrong, ERROR</p>
 <p>models fail silently! and they can still run with no error, even if your accuracy is zero percent–</p>
 <p>if you are not monitoring your model in some way, you are oblivious to decay.</p>
@@ -1286,11 +1246,7 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="mlops-is-monitoring-2" class="slide level2">
-<h2>MLOps is… <strong>monitoring</strong></h2>
-<p>how do we use time?</p>
-</section>
-<section id="section-31" class="slide level2">
+<section id="section-29" class="slide level2">
 <h2></h2>
 <div class="sourceCode" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a><span class="im">import</span> vetiver</span>
 <span id="cb23-2"><a href="#cb23-2"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
@@ -1324,61 +1280,45 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-32" class="slide level2">
+<section id="section-30" class="slide level2">
 <h2></h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>metrics <span class="op">=</span> vetiver.compute_metrics(</span>
-<span id="cb24-2"><a href="#cb24-2"></a>    new_data, </span>
-<span id="cb24-3"><a href="#cb24-3"></a>    <span class="st">"date"</span>, </span>
-<span id="cb24-4"><a href="#cb24-4"></a>    timedelta(weeks <span class="op">=</span> <span class="dv">1</span>), </span>
-<span id="cb24-5"><a href="#cb24-5"></a>    metric_set, </span>
-<span id="cb24-6"><a href="#cb24-6"></a>    <span class="st">"like_count"</span>, </span>
-<span id="cb24-7"><a href="#cb24-7"></a>    <span class="st">"preds"</span></span>
-<span id="cb24-8"><a href="#cb24-8"></a>    )</span>
-<span id="cb24-9"><a href="#cb24-9"></a></span>
-<span id="cb24-10"><a href="#cb24-10"></a>vetiver.pin_metrics(</span>
-<span id="cb24-11"><a href="#cb24-11"></a>    model_board, </span>
-<span id="cb24-12"><a href="#cb24-12"></a>    metrics, </span>
-<span id="cb24-13"><a href="#cb24-13"></a>    <span class="st">"ads_metrics"</span>, </span>
-<span id="cb24-14"><a href="#cb24-14"></a>    overwrite <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb24-15"><a href="#cb24-15"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<aside class="notes">
-<p>common failure is storing data that might overlap in date</p>
-<p>once computed, you can pin the dataframe of metrics to keep a log of your model performance! give it a fancy name, and you can also specify if you would like to overwrite any overlapping dates from the last time you computed/pinned metrics.</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a><span class="im">import</span> vetiver</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="im">from</span> datetime <span class="im">import</span> timedelta</span>
+<span id="cb24-4"><a href="#cb24-4"></a></span>
+<span id="cb24-5"><a href="#cb24-5"></a>metric_set <span class="op">=</span> [metrics.mean_absolute_error, metrics.mean_squared_error]</span>
+<span id="cb24-6"><a href="#cb24-6"></a></span>
+<span id="cb24-7"><a href="#cb24-7"></a>metrics <span class="op">=</span> vetiver.compute_metrics(</span>
+<span id="cb24-8"><a href="#cb24-8"></a>    new_data, </span>
+<span id="cb24-9"><a href="#cb24-9"></a>    <span class="st">"date"</span>, </span>
+<span id="cb24-10"><a href="#cb24-10"></a>    timedelta(weeks <span class="op">=</span> <span class="dv">1</span>), </span>
+<span id="cb24-11"><a href="#cb24-11"></a>    metric_set, </span>
+<span id="cb24-12"><a href="#cb24-12"></a>    <span class="st">"like_count"</span>, </span>
+<span id="cb24-13"><a href="#cb24-13"></a>    <span class="st">"preds"</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a>    )</span>
+<span id="cb24-15"><a href="#cb24-15"></a></span>
+<span id="cb24-16"><a href="#cb24-16"></a>m <span class="op">=</span> vetiver.plot_metrics(metrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="section-33" class="slide level2">
+<section id="section-31" class="slide level2">
 <h2></h2>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>vetiver.pin_metrics(</span>
-<span id="cb25-2"><a href="#cb25-2"></a>    model_board, </span>
-<span id="cb25-3"><a href="#cb25-3"></a>    metrics, </span>
-<span id="cb25-4"><a href="#cb25-4"></a>    <span class="st">"ads_metrics"</span>, </span>
-<span id="cb25-5"><a href="#cb25-5"></a>    overwrite <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a>    )</span>
-<span id="cb25-7"><a href="#cb25-7"></a></span>
-<span id="cb25-8"><a href="#cb25-8"></a>m <span class="op">=</span> vetiver.plot_metrics(metrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="section-34" class="slide level2">
-<h2></h2>
-<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>vetiver.pin_metrics(</span>
-<span id="cb26-2"><a href="#cb26-2"></a>    model_board, </span>
-<span id="cb26-3"><a href="#cb26-3"></a>    metrics, </span>
-<span id="cb26-4"><a href="#cb26-4"></a>    <span class="st">"ads_metrics"</span>, </span>
-<span id="cb26-5"><a href="#cb26-5"></a>    overwrite <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a>    )</span>
-<span id="cb26-7"><a href="#cb26-7"></a></span>
-<span id="cb26-8"><a href="#cb26-8"></a>m <span class="op">=</span> vetiver.plot_metrics(metrics)</span>
-<span id="cb26-9"><a href="#cb26-9"></a>m.update_yaxes(matches<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb26-10"><a href="#cb26-10"></a>m.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="im">import</span> vetiver</span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="im">from</span> datetime <span class="im">import</span> timedelta</span>
+<span id="cb25-4"><a href="#cb25-4"></a></span>
+<span id="cb25-5"><a href="#cb25-5"></a>metric_set <span class="op">=</span> [metrics.mean_absolute_error, metrics.mean_squared_error]</span>
+<span id="cb25-6"><a href="#cb25-6"></a></span>
+<span id="cb25-7"><a href="#cb25-7"></a>metrics <span class="op">=</span> vetiver.compute_metrics(</span>
+<span id="cb25-8"><a href="#cb25-8"></a>    new_data, </span>
+<span id="cb25-9"><a href="#cb25-9"></a>    <span class="st">"date"</span>, </span>
+<span id="cb25-10"><a href="#cb25-10"></a>    timedelta(weeks <span class="op">=</span> <span class="dv">1</span>), </span>
+<span id="cb25-11"><a href="#cb25-11"></a>    metric_set, </span>
+<span id="cb25-12"><a href="#cb25-12"></a>    <span class="st">"like_count"</span>, </span>
+<span id="cb25-13"><a href="#cb25-13"></a>    <span class="st">"preds"</span></span>
+<span id="cb25-14"><a href="#cb25-14"></a>    )</span>
+<span id="cb25-15"><a href="#cb25-15"></a></span>
+<span id="cb25-16"><a href="#cb25-16"></a>m <span class="op">=</span> vetiver.plot_metrics(metrics)</span>
+<span id="cb25-17"><a href="#cb25-17"></a>m.update_yaxes(matches<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb25-18"><a href="#cb25-18"></a>m.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
 <p>flexible tool– will create plot, you can customize (ie, rescale the y-axis)</p>
 <style type="text/css">
@@ -1393,14 +1333,14 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-35" class="slide level2">
+<section id="section-32" class="slide level2">
 <h2></h2>
 <div class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 
-<div>                            <div id="9a674bb3-17cd-4155-b567-4d3e368ac838" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("9a674bb3-17cd-4155-b567-4d3e368ac838")) {                    Plotly.newPlot(                        "9a674bb3-17cd-4155-b567-4d3e368ac838",                        [{"customdata":[[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[5]],"hovertemplate":"metric=mean_absolute_error<br>index=%{x}<br>estimate=%{y}<br>n=%{customdata[0]:}<extra></extra>","legendgroup":"mean_absolute_error","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"markers+lines","name":"mean_absolute_error","orientation":"v","showlegend":true,"x":["2014-10-01T00:00:00","2014-10-08T00:00:00","2014-10-15T00:00:00","2014-10-22T00:00:00","2014-10-29T00:00:00","2014-11-05T00:00:00","2014-11-12T00:00:00","2014-11-19T00:00:00","2014-11-26T00:00:00","2014-12-03T00:00:00","2014-12-10T00:00:00","2014-12-17T00:00:00","2014-12-24T00:00:00","2014-12-31T00:00:00","2015-01-07T00:00:00","2015-01-14T00:00:00","2015-01-21T00:00:00","2015-01-28T00:00:00","2015-02-04T00:00:00","2015-02-11T00:00:00","2015-02-18T00:00:00","2015-02-25T00:00:00","2015-03-04T00:00:00","2015-03-11T00:00:00","2015-03-18T00:00:00","2015-03-25T00:00:00","2015-04-01T00:00:00","2015-04-08T00:00:00","2015-04-15T00:00:00","2015-04-22T00:00:00","2015-04-29T00:00:00","2015-05-06T00:00:00","2015-05-13T00:00:00","2015-05-20T00:00:00","2015-05-27T00:00:00","2015-06-03T00:00:00","2015-06-10T00:00:00","2015-06-17T00:00:00","2015-06-24T00:00:00","2015-07-01T00:00:00","2015-07-08T00:00:00","2015-07-15T00:00:00","2015-07-22T00:00:00","2015-07-29T00:00:00","2015-08-05T00:00:00","2015-08-12T00:00:00","2015-08-19T00:00:00","2015-08-26T00:00:00","2015-09-02T00:00:00","2015-09-09T00:00:00","2015-09-16T00:00:00","2015-09-23T00:00:00","2015-09-30T00:00:00","2015-10-07T00:00:00","2015-10-14T00:00:00","2015-10-21T00:00:00","2015-10-28T00:00:00","2015-11-04T00:00:00","2015-11-11T00:00:00","2015-11-18T00:00:00","2015-11-25T00:00:00","2015-12-02T00:00:00","2015-12-09T00:00:00","2015-12-16T00:00:00","2015-12-23T00:00:00","2015-12-30T00:00:00","2016-01-06T00:00:00","2016-01-13T00:00:00","2016-01-20T00:00:00","2016-01-27T00:00:00","2016-02-03T00:00:00","2016-02-10T00:00:00","2016-02-17T00:00:00","2016-02-24T00:00:00","2016-03-02T00:00:00","2016-03-09T00:00:00","2016-03-16T00:00:00","2016-03-23T00:00:00","2016-03-30T00:00:00","2016-04-06T00:00:00","2016-04-13T00:00:00","2016-04-20T00:00:00","2016-04-27T00:00:00","2016-05-04T00:00:00","2016-05-11T00:00:00","2016-05-18T00:00:00","2016-05-25T00:00:00","2016-06-01T00:00:00","2016-06-08T00:00:00","2016-06-15T00:00:00","2016-06-22T00:00:00","2016-06-29T00:00:00","2016-07-06T00:00:00","2016-07-13T00:00:00","2016-07-20T00:00:00","2016-07-27T00:00:00","2016-08-03T00:00:00","2016-08-10T00:00:00","2016-08-17T00:00:00","2016-08-24T00:00:00"],"xaxis":"x2","y":[0.7082257351703921,1.464858809992281,0.6073192400931632,1.2843454614490715,0.715373770050489,1.394354873113294,1.527875544795075,1.6911619318572018,4.712511271491934,0.8083542276372669,4.335958967591493,1.2748605398277273,7.1546371245214,4.737499850554154,5.590041340537949,5.360912225586856,1.7107529618500095,1.777444720055444,0.8792166547771003,0.9400210630871564,0.8258217015832499,2.0092171955620826,1.5679381329992859,2.4051562254781564,1.3878327795424537,1.54252490454687,0.9475171159582274,0.8481116895577567,1.9775271165075543,1.534230675655475,1.0982077240164605,1.359375657889229,1.537534227225166,2.5908980929478234,1.529109387660435,3.6547528202776225,1.3472265751604353,1.3720013295549671,1.1752172201472095,2.620927468575613,1.5798437348514125,2.259011646352538,0.6809512019740512,1.126183528215681,0.7867450516531802,1.2434247222726005,0.9393095750906809,0.885655975202287,3.404101000244141,0.8690175635638245,3.1704195154506123,1.2165348201381125,1.637435308218599,1.8340167523601314,1.4415946479322521,1.8539556333469667,1.0596262350408558,1.4149599929042154,1.3491187945580283,0.96602640397279,4.890261883192433,1.4441924219413376,4.9886920558625985,0.9987489106132338,6.905702351705506,4.730576232705515,6.253769125175976,5.641869392142387,1.3510574308546215,2.2901847751947826,0.7684609317218841,2.0048755387786583,1.2861817737317078,2.30964979954112,1.278036489524775,1.9854279042593146,1.258921331065233,1.643290184927017,1.2629722041277716,1.1889037901678994,1.0684653705705902,0.38408295971679646,0.9817209689243862,1.4686088645019524,0.7791037265818762,1.315673500453403,2.390645977897077,1.8076482757742744,3.988136016427176,1.3485817954616277,1.118456730015345,3.0542237416643423,0.9663938203456967,3.0438704150399083,1.6055731502162394,2.108264059186662,1.4485731313571424,0.9725421944110039,0.8891623746163498,1.0950287286621092],"yaxis":"y2","type":"scatter"},{"customdata":[[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[5]],"hovertemplate":"metric=mean_squared_error<br>index=%{x}<br>estimate=%{y}<br>n=%{customdata[0]:}<extra></extra>","legendgroup":"mean_squared_error","line":{"color":"#EF553B","dash":"solid"},"marker":{"symbol":"circle"},"mode":"markers+lines","name":"mean_squared_error","orientation":"v","showlegend":true,"x":["2014-10-01T00:00:00","2014-10-08T00:00:00","2014-10-15T00:00:00","2014-10-22T00:00:00","2014-10-29T00:00:00","2014-11-05T00:00:00","2014-11-12T00:00:00","2014-11-19T00:00:00","2014-11-26T00:00:00","2014-12-03T00:00:00","2014-12-10T00:00:00","2014-12-17T00:00:00","2014-12-24T00:00:00","2014-12-31T00:00:00","2015-01-07T00:00:00","2015-01-14T00:00:00","2015-01-21T00:00:00","2015-01-28T00:00:00","2015-02-04T00:00:00","2015-02-11T00:00:00","2015-02-18T00:00:00","2015-02-25T00:00:00","2015-03-04T00:00:00","2015-03-11T00:00:00","2015-03-18T00:00:00","2015-03-25T00:00:00","2015-04-01T00:00:00","2015-04-08T00:00:00","2015-04-15T00:00:00","2015-04-22T00:00:00","2015-04-29T00:00:00","2015-05-06T00:00:00","2015-05-13T00:00:00","2015-05-20T00:00:00","2015-05-27T00:00:00","2015-06-03T00:00:00","2015-06-10T00:00:00","2015-06-17T00:00:00","2015-06-24T00:00:00","2015-07-01T00:00:00","2015-07-08T00:00:00","2015-07-15T00:00:00","2015-07-22T00:00:00","2015-07-29T00:00:00","2015-08-05T00:00:00","2015-08-12T00:00:00","2015-08-19T00:00:00","2015-08-26T00:00:00","2015-09-02T00:00:00","2015-09-09T00:00:00","2015-09-16T00:00:00","2015-09-23T00:00:00","2015-09-30T00:00:00","2015-10-07T00:00:00","2015-10-14T00:00:00","2015-10-21T00:00:00","2015-10-28T00:00:00","2015-11-04T00:00:00","2015-11-11T00:00:00","2015-11-18T00:00:00","2015-11-25T00:00:00","2015-12-02T00:00:00","2015-12-09T00:00:00","2015-12-16T00:00:00","2015-12-23T00:00:00","2015-12-30T00:00:00","2016-01-06T00:00:00","2016-01-13T00:00:00","2016-01-20T00:00:00","2016-01-27T00:00:00","2016-02-03T00:00:00","2016-02-10T00:00:00","2016-02-17T00:00:00","2016-02-24T00:00:00","2016-03-02T00:00:00","2016-03-09T00:00:00","2016-03-16T00:00:00","2016-03-23T00:00:00","2016-03-30T00:00:00","2016-04-06T00:00:00","2016-04-13T00:00:00","2016-04-20T00:00:00","2016-04-27T00:00:00","2016-05-04T00:00:00","2016-05-11T00:00:00","2016-05-18T00:00:00","2016-05-25T00:00:00","2016-06-01T00:00:00","2016-06-08T00:00:00","2016-06-15T00:00:00","2016-06-22T00:00:00","2016-06-29T00:00:00","2016-07-06T00:00:00","2016-07-13T00:00:00","2016-07-20T00:00:00","2016-07-27T00:00:00","2016-08-03T00:00:00","2016-08-10T00:00:00","2016-08-17T00:00:00","2016-08-24T00:00:00"],"xaxis":"x","y":[0.7160336952759948,3.385446687565463,0.5826647643205908,3.016281525871763,0.646108348458964,3.3805134026130594,2.722813365885873,5.3920131799109425,56.904909690872614,1.204842004399872,46.180506331902556,2.721950620611396,79.79378158098886,37.09317087202072,45.248567613540956,49.6120311005523,4.2132420420406245,4.127901873029124,1.0148972008344601,1.6050369160828877,1.3730239451294513,7.2838673192416445,2.9972412608622494,10.101010904906035,2.3496043857548727,4.848575344609786,1.4900384895690355,0.9738663308348041,5.013376764436016,2.901907051697894,1.5249534848218307,2.4663852001300706,2.5581275947540925,25.47385746543662,2.443035135185691,28.946915304608353,2.4193792843440454,3.0706567575176833,1.8023204622358955,17.202631485547197,2.9307877147986687,16.894694671823263,0.9842816555358542,1.7780496755096074,1.25906702640889,2.163707915631434,1.445133719493717,1.1700542082468819,37.46670178341479,1.0813829410284073,27.77828780271266,1.8711602244905272,2.907117966372321,3.594273195912969,2.419292416776127,6.082543065164101,2.8316874771473897,2.509986937941864,2.616688762543889,1.3964660296569809,59.54063101882419,2.2397577612039146,58.582485520912236,1.0633718146904807,72.74565486490519,36.118371420363054,59.424165015506176,51.54104039717913,2.51723541515125,16.3841540514275,0.8930206682495331,10.635500932646712,2.0615562612783918,12.487997496781986,2.080747126111033,7.142514031024773,2.4513975607945504,3.8946557845490246,2.2639652467272353,2.677409540302434,1.491384699150054,0.27828513151003736,1.2222712526683495,2.5889403129285347,0.9546858254920502,2.0176618047133044,28.575832178693812,3.5286863441547607,36.83567540997577,2.2514495594379897,1.42758997513046,31.112421987028334,1.2533147083374427,27.63060804440269,2.9833947540905403,5.526390336063025,2.3220556348748222,1.1054402853440475,0.8883100988575158,1.5757848012128506],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.98],"title":{"text":"index"}},"yaxis":{"anchor":"x","domain":[0.0,0.485],"title":{"text":"estimate"}},"xaxis2":{"anchor":"y2","domain":[0.0,0.98],"matches":"x","showticklabels":false},"yaxis2":{"anchor":"x2","domain":[0.515,1.0],"title":{"text":"estimate"}},"annotations":[{"font":{},"showarrow":false,"text":"mean_squared_error","textangle":90,"x":0.98,"xanchor":"left","xref":"paper","y":0.2425,"yanchor":"middle","yref":"paper"},{"font":{},"showarrow":false,"text":"mean_absolute_error","textangle":90,"x":0.98,"xanchor":"left","xref":"paper","y":0.7575000000000001,"yanchor":"middle","yref":"paper"}],"legend":{"title":{"text":"metric"},"tracegroupgap":0},"margin":{"t":60},"showlegend":false},                        {"responsive": true}                    ).then(function(){
+<div>                            <div id="6402d8f8-d856-4015-8147-e231e0aa3f12" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("6402d8f8-d856-4015-8147-e231e0aa3f12")) {                    Plotly.newPlot(                        "6402d8f8-d856-4015-8147-e231e0aa3f12",                        [{"customdata":[[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[5]],"hovertemplate":"metric=mean_absolute_error<br>index=%{x}<br>estimate=%{y}<br>n=%{customdata[0]:}<extra></extra>","legendgroup":"mean_absolute_error","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines+markers","name":"mean_absolute_error","orientation":"v","showlegend":true,"x":["2014-10-01T00:00:00","2014-10-08T00:00:00","2014-10-15T00:00:00","2014-10-22T00:00:00","2014-10-29T00:00:00","2014-11-05T00:00:00","2014-11-12T00:00:00","2014-11-19T00:00:00","2014-11-26T00:00:00","2014-12-03T00:00:00","2014-12-10T00:00:00","2014-12-17T00:00:00","2014-12-24T00:00:00","2014-12-31T00:00:00","2015-01-07T00:00:00","2015-01-14T00:00:00","2015-01-21T00:00:00","2015-01-28T00:00:00","2015-02-04T00:00:00","2015-02-11T00:00:00","2015-02-18T00:00:00","2015-02-25T00:00:00","2015-03-04T00:00:00","2015-03-11T00:00:00","2015-03-18T00:00:00","2015-03-25T00:00:00","2015-04-01T00:00:00","2015-04-08T00:00:00","2015-04-15T00:00:00","2015-04-22T00:00:00","2015-04-29T00:00:00","2015-05-06T00:00:00","2015-05-13T00:00:00","2015-05-20T00:00:00","2015-05-27T00:00:00","2015-06-03T00:00:00","2015-06-10T00:00:00","2015-06-17T00:00:00","2015-06-24T00:00:00","2015-07-01T00:00:00","2015-07-08T00:00:00","2015-07-15T00:00:00","2015-07-22T00:00:00","2015-07-29T00:00:00","2015-08-05T00:00:00","2015-08-12T00:00:00","2015-08-19T00:00:00","2015-08-26T00:00:00","2015-09-02T00:00:00","2015-09-09T00:00:00","2015-09-16T00:00:00","2015-09-23T00:00:00","2015-09-30T00:00:00","2015-10-07T00:00:00","2015-10-14T00:00:00","2015-10-21T00:00:00","2015-10-28T00:00:00","2015-11-04T00:00:00","2015-11-11T00:00:00","2015-11-18T00:00:00","2015-11-25T00:00:00","2015-12-02T00:00:00","2015-12-09T00:00:00","2015-12-16T00:00:00","2015-12-23T00:00:00","2015-12-30T00:00:00","2016-01-06T00:00:00","2016-01-13T00:00:00","2016-01-20T00:00:00","2016-01-27T00:00:00","2016-02-03T00:00:00","2016-02-10T00:00:00","2016-02-17T00:00:00","2016-02-24T00:00:00","2016-03-02T00:00:00","2016-03-09T00:00:00","2016-03-16T00:00:00","2016-03-23T00:00:00","2016-03-30T00:00:00","2016-04-06T00:00:00","2016-04-13T00:00:00","2016-04-20T00:00:00","2016-04-27T00:00:00","2016-05-04T00:00:00","2016-05-11T00:00:00","2016-05-18T00:00:00","2016-05-25T00:00:00","2016-06-01T00:00:00","2016-06-08T00:00:00","2016-06-15T00:00:00","2016-06-22T00:00:00","2016-06-29T00:00:00","2016-07-06T00:00:00","2016-07-13T00:00:00","2016-07-20T00:00:00","2016-07-27T00:00:00","2016-08-03T00:00:00","2016-08-10T00:00:00","2016-08-17T00:00:00","2016-08-24T00:00:00"],"xaxis":"x2","y":[0.7082257351703921,1.464858809992281,0.6073192400931632,1.2843454614490715,0.715373770050489,1.394354873113294,1.527875544795075,1.6911619318572018,4.712511271491934,0.8083542276372669,4.335958967591493,1.2748605398277273,7.1546371245214,4.737499850554154,5.590041340537949,5.360912225586856,1.7107529618500095,1.777444720055444,0.8792166547771003,0.9400210630871564,0.8258217015832499,2.0092171955620826,1.5679381329992859,2.4051562254781564,1.3878327795424537,1.54252490454687,0.9475171159582274,0.8481116895577567,1.9775271165075543,1.534230675655475,1.0982077240164605,1.359375657889229,1.537534227225166,2.5908980929478234,1.529109387660435,3.6547528202776225,1.3472265751604353,1.3720013295549671,1.1752172201472095,2.620927468575613,1.5798437348514125,2.259011646352538,0.6809512019740512,1.126183528215681,0.7867450516531802,1.2434247222726005,0.9393095750906809,0.885655975202287,3.404101000244141,0.8690175635638245,3.1704195154506123,1.2165348201381125,1.637435308218599,1.8340167523601314,1.4415946479322521,1.8539556333469667,1.0596262350408558,1.4149599929042154,1.3491187945580283,0.96602640397279,4.890261883192433,1.4441924219413376,4.9886920558625985,0.9987489106132338,6.905702351705506,4.730576232705515,6.253769125175976,5.641869392142387,1.3510574308546215,2.2901847751947826,0.7684609317218841,2.0048755387786583,1.2861817737317078,2.30964979954112,1.278036489524775,1.9854279042593146,1.258921331065233,1.643290184927017,1.2629722041277716,1.1889037901678994,1.0684653705705902,0.38408295971679646,0.9817209689243862,1.4686088645019524,0.7791037265818762,1.315673500453403,2.390645977897077,1.8076482757742744,3.988136016427176,1.3485817954616277,1.118456730015345,3.0542237416643423,0.9663938203456967,3.0438704150399083,1.6055731502162394,2.108264059186662,1.4485731313571424,0.9725421944110039,0.8891623746163498,1.0950287286621092],"yaxis":"y2","type":"scatter"},{"customdata":[[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[7],[5]],"hovertemplate":"metric=mean_squared_error<br>index=%{x}<br>estimate=%{y}<br>n=%{customdata[0]:}<extra></extra>","legendgroup":"mean_squared_error","line":{"color":"#EF553B","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines+markers","name":"mean_squared_error","orientation":"v","showlegend":true,"x":["2014-10-01T00:00:00","2014-10-08T00:00:00","2014-10-15T00:00:00","2014-10-22T00:00:00","2014-10-29T00:00:00","2014-11-05T00:00:00","2014-11-12T00:00:00","2014-11-19T00:00:00","2014-11-26T00:00:00","2014-12-03T00:00:00","2014-12-10T00:00:00","2014-12-17T00:00:00","2014-12-24T00:00:00","2014-12-31T00:00:00","2015-01-07T00:00:00","2015-01-14T00:00:00","2015-01-21T00:00:00","2015-01-28T00:00:00","2015-02-04T00:00:00","2015-02-11T00:00:00","2015-02-18T00:00:00","2015-02-25T00:00:00","2015-03-04T00:00:00","2015-03-11T00:00:00","2015-03-18T00:00:00","2015-03-25T00:00:00","2015-04-01T00:00:00","2015-04-08T00:00:00","2015-04-15T00:00:00","2015-04-22T00:00:00","2015-04-29T00:00:00","2015-05-06T00:00:00","2015-05-13T00:00:00","2015-05-20T00:00:00","2015-05-27T00:00:00","2015-06-03T00:00:00","2015-06-10T00:00:00","2015-06-17T00:00:00","2015-06-24T00:00:00","2015-07-01T00:00:00","2015-07-08T00:00:00","2015-07-15T00:00:00","2015-07-22T00:00:00","2015-07-29T00:00:00","2015-08-05T00:00:00","2015-08-12T00:00:00","2015-08-19T00:00:00","2015-08-26T00:00:00","2015-09-02T00:00:00","2015-09-09T00:00:00","2015-09-16T00:00:00","2015-09-23T00:00:00","2015-09-30T00:00:00","2015-10-07T00:00:00","2015-10-14T00:00:00","2015-10-21T00:00:00","2015-10-28T00:00:00","2015-11-04T00:00:00","2015-11-11T00:00:00","2015-11-18T00:00:00","2015-11-25T00:00:00","2015-12-02T00:00:00","2015-12-09T00:00:00","2015-12-16T00:00:00","2015-12-23T00:00:00","2015-12-30T00:00:00","2016-01-06T00:00:00","2016-01-13T00:00:00","2016-01-20T00:00:00","2016-01-27T00:00:00","2016-02-03T00:00:00","2016-02-10T00:00:00","2016-02-17T00:00:00","2016-02-24T00:00:00","2016-03-02T00:00:00","2016-03-09T00:00:00","2016-03-16T00:00:00","2016-03-23T00:00:00","2016-03-30T00:00:00","2016-04-06T00:00:00","2016-04-13T00:00:00","2016-04-20T00:00:00","2016-04-27T00:00:00","2016-05-04T00:00:00","2016-05-11T00:00:00","2016-05-18T00:00:00","2016-05-25T00:00:00","2016-06-01T00:00:00","2016-06-08T00:00:00","2016-06-15T00:00:00","2016-06-22T00:00:00","2016-06-29T00:00:00","2016-07-06T00:00:00","2016-07-13T00:00:00","2016-07-20T00:00:00","2016-07-27T00:00:00","2016-08-03T00:00:00","2016-08-10T00:00:00","2016-08-17T00:00:00","2016-08-24T00:00:00"],"xaxis":"x","y":[0.7160336952759948,3.385446687565463,0.5826647643205908,3.016281525871763,0.646108348458964,3.3805134026130594,2.722813365885873,5.3920131799109425,56.904909690872614,1.204842004399872,46.180506331902556,2.721950620611396,79.79378158098886,37.09317087202072,45.248567613540956,49.6120311005523,4.2132420420406245,4.127901873029124,1.0148972008344601,1.6050369160828877,1.3730239451294513,7.2838673192416445,2.9972412608622494,10.101010904906035,2.3496043857548727,4.848575344609786,1.4900384895690355,0.9738663308348041,5.013376764436016,2.901907051697894,1.5249534848218307,2.4663852001300706,2.5581275947540925,25.47385746543662,2.443035135185691,28.946915304608353,2.4193792843440454,3.0706567575176833,1.8023204622358955,17.202631485547197,2.9307877147986687,16.894694671823263,0.9842816555358542,1.7780496755096074,1.25906702640889,2.163707915631434,1.445133719493717,1.1700542082468819,37.46670178341479,1.0813829410284073,27.77828780271266,1.8711602244905272,2.907117966372321,3.594273195912969,2.419292416776127,6.082543065164101,2.8316874771473897,2.509986937941864,2.616688762543889,1.3964660296569809,59.54063101882419,2.2397577612039146,58.582485520912236,1.0633718146904807,72.74565486490519,36.118371420363054,59.424165015506176,51.54104039717913,2.51723541515125,16.3841540514275,0.8930206682495331,10.635500932646712,2.0615562612783918,12.487997496781986,2.080747126111033,7.142514031024773,2.4513975607945504,3.8946557845490246,2.2639652467272353,2.677409540302434,1.491384699150054,0.27828513151003736,1.2222712526683495,2.5889403129285347,0.9546858254920502,2.0176618047133044,28.575832178693812,3.5286863441547607,36.83567540997577,2.2514495594379897,1.42758997513046,31.112421987028334,1.2533147083374427,27.63060804440269,2.9833947540905403,5.526390336063025,2.3220556348748222,1.1054402853440475,0.8883100988575158,1.5757848012128506],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.98],"title":{"text":"index"}},"yaxis":{"anchor":"x","domain":[0.0,0.485],"title":{"text":"estimate"}},"xaxis2":{"anchor":"y2","domain":[0.0,0.98],"matches":"x","showticklabels":false},"yaxis2":{"anchor":"x2","domain":[0.515,1.0],"title":{"text":"estimate"}},"annotations":[{"font":{},"showarrow":false,"text":"mean_squared_error","textangle":90,"x":0.98,"xanchor":"left","xref":"paper","y":0.2425,"yanchor":"middle","yref":"paper"},{"font":{},"showarrow":false,"text":"mean_absolute_error","textangle":90,"x":0.98,"xanchor":"left","xref":"paper","y":0.7575000000000001,"yanchor":"middle","yref":"paper"}],"legend":{"title":{"text":"metric"},"tracegroupgap":0},"margin":{"t":60},"showlegend":false},                        {"responsive": true}                    ).then(function(){
                             
-var gd = document.getElementById('9a674bb3-17cd-4155-b567-4d3e368ac838');
+var gd = document.getElementById('6402d8f8-d856-4015-8147-e231e0aa3f12');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{
@@ -1426,6 +1366,10 @@ if (outputEl) {{
 </div>
 </div>
 </section>
+<section id="section-33" class="slide level2">
+<h2></h2>
+
+<img data-src="images/dashboard.gif" class="r-stretch"></section>
 <section id="mlops-is-monitoring-3" class="slide level2">
 <h2>MLOps is… <strong>monitoring</strong></h2>
 <p>when things go wrong:</p>
@@ -1436,7 +1380,8 @@ if (outputEl) {{
 <li class="fragment">remember to version!</li>
 </ul>
 </div>
-<aside class="notes">
+
+<img data-src="images/decay.jpg" class="r-stretch"><aside class="notes">
 <p>if performance is declining, - retraining model? - new model type altogether?</p>
 <p>if you are using model versioning, it becomes easier to roll back to the latest version</p>
 <style type="text/css">
@@ -1456,7 +1401,6 @@ if (outputEl) {{
 <aside class="notes">
 <p>not only do we want our models to be GOOD in a statistical and business sense, but also GOOD in an ethical sense</p>
 <p>there’s no surefire way to avoid bias, but being thoughtful is a good place to start</p>
-<p>actually, my dad has a quote that he always tells me–“if you haven’t written it down, you haven’t thought it out”</p>
 <p>this is a space my team is actively investing time into to make sure we can integrate and support any effort to create a tool that helps data scientist make sure the models they deploy have given a holistic view to their model</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1472,14 +1416,14 @@ if (outputEl) {{
 </section>
 <section id="mlops-is-thinking-about-making-good-models-1" class="slide level2">
 <h2>MLOps is… <strong>thinking about making good models</strong></h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>vetiver.vetiver_pin_write(board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>vetiver.vetiver_pin_write(board, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <pre><code>Model Cards provide a framework for transparent, responsible reporting. 
  Use the vetiver `.qmd` Quarto template as a place to start, 
  with vetiver.model_card()</code></pre>
 <aside class="notes">
 <p>created by people who left google</p>
-<p>documents</p>
+<p>looks at a model quantitatively and also qualitativvely</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1495,10 +1439,9 @@ if (outputEl) {{
 </section>
 <section id="mlops-is-thinking-about-making-good-models-2" class="slide level2">
 <h2>MLOps is… <strong>thinking about making good models</strong></h2>
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>vetiver.model_card()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>vetiver.model_card()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <aside class="notes">
 <p>partially automated (pieces that we can), uses Quarto, a platform for technical documentation and communication (actually, fun fact, my slides are also made in quarto)</p>
-<p>looks at a model quantitatively and also qualitativvely</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1511,22 +1454,22 @@ if (outputEl) {{
           display:block!important;
       }</style></aside>
 </section>
-<section id="section-36" class="slide level2">
+<section id="section-34" class="slide level2">
 <h2></h2>
 
 <img data-src="images/title.png" class="r-stretch"></section>
-<section id="section-37" class="slide level2">
+<section id="section-35" class="slide level2">
 <h2></h2>
 
 <img data-src="images/quant.png" class="r-stretch"></section>
-<section id="section-38" class="slide level2">
+<section id="section-36" class="slide level2">
 <h2></h2>
 
 <img data-src="images/ethics.png" class="r-stretch"><aside class="notes">
 <p>my model doesn’t have any ethical challenges, it’s predicting youtube likes</p>
 <ul>
-<li>However, we strongly advise that instead of deleting any such section because you have incomplete or imprecise information, you note your own process and considerations.</li>
-<li>Also, consider the possibility of gathering feedback from those impacted by the machine learning system, especially those with marginalized identities.</li>
+<li><p>Also, consider the possibility of gathering feedback from those impacted by the machine learning system, especially those with marginalized identities.</p></li>
+<li><p>However, we strongly advise that instead of deleting any such section because you have incomplete or imprecise information, you note your own process and considerations.</p></li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1542,7 +1485,7 @@ if (outputEl) {{
 </section>
 <section id="mlops-is-thinking-about-making-good-models-3" class="slide level2">
 <h2>MLOps is… <strong>thinking about making good models</strong></h2>
-<p>From Mitchell et al.&nbsp;(2019):</p>
+<p>From <a href="https://dl.acm.org/doi/10.1145/3287560.3287596">Mitchell et al.&nbsp;(2019)</a>:</p>
 <div class="r-fit-text">
 <blockquote>
 <p><em>Therefore the usefulness and accuracy of a model card relies on the integrity of the creator(s) of the card itself.</em></p>
@@ -1550,7 +1493,8 @@ if (outputEl) {{
 </div>
 <aside class="notes">
 <p>The process of documenting the extent and limits of a machine learning system is part of transparent, responsible reporting.</p>
-<p>A model card framework such as this is a helpful tool and some parts of a model card can be automated, but ultimately the extent of its value depends on you.</p>
+<p>ultimately the extent of its value depends on you</p>
+<p>actually, my dad has a quote that he always tells me–“if you haven’t written it down, you haven’t thought it out”</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1585,18 +1529,20 @@ if (outputEl) {{
 </section>
 
 <section>
-<section id="section-39" class="title-slide slide level1 center">
+<section id="section-37" class="title-slide slide level1 center">
 <h1></h1>
-<center>
-🔨
-</center>
+
+<img data-src="images/thinking_abt_tools.jpg" class="r-stretch"><div class="sourceCode" id="cb29"><pre class="sourceCode numberSource notes number-lines code-with-copy"><code class="sourceCode"><span id="cb29-1"><a href="#cb29-1"></a>alright, lets fast forward to a week from this conference. we're all well rested, and you and your team are starting to think about what is necessary for your model deployment.</span>
+<span id="cb29-2"><a href="#cb29-2"></a></span>
+<span id="cb29-3"><a href="#cb29-3"></a>you know you're going to need a few tools. we're all scientists here, and we know we need to do some research.</span>
+<span id="cb29-4"><a href="#cb29-4"></a></span>
+<span id="cb29-5"><a href="#cb29-5"></a>all good research starts with a google search and you type "mlops software"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="tooling-tips" class="slide level2">
 <h2>Tooling tips…</h2>
 
 <img data-src="https://46eybw2v1nh52oe80d3bi91u-wpengine.netdna-ssl.com/wp-content/uploads/2021/12/Data-and-AI-Landscape-2021-v3-small-1024x530.jpg" class="r-stretch quarto-figure-center"><aside class="notes">
 <p>the landscape is vast! choosing the right tool is important, and can be difficult. there’s no one size fits all method for MLOps.</p>
-<p>from a tool builders perspective, there’s a lot that i want to have in my project. i have a list of features i want to add thats larger than i am, but i have some core principles that i keep in mind when</p>
 <p>i make data science tools, but i also have spent a lot of time looking at tools, and here’s a few of my takeaways</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1637,8 +1583,18 @@ if (outputEl) {{
 </ul></li>
 </ul>
 <aside class="notes">
-<p>one thing i think about a lot is how does the software i build work in different scenarios, because each team has unique needs. not only do i want this software to work in different environments–say, in different clouds. not only do i want to make sure that my open source software has first class support for the products directly builds, but I want to make sure users can easily make an <code>app.py</code> or <code>Dockerfile</code> to bring to a public or private cloud</p>
-<p>not only different environments, but i want my tools to work well with other tools. if you’re familiar with python, you can think about how pandas creates a dataframe to clean data and scikit learn uses the same dataframe data structures to model the data. the data science landscape in python would look very different if these two tools did not have pieces that worked as a natural extension of each other. in the same way, you can use vetiver alone to do the tasks of versioning, deploying, and monitoring, but also add in other softwares if you would like to do more.</p>
+<p>one thing i think about a lot is how does the software i build work in different scenarios, because each team has unique needs. not only do i want this software to</p>
+<ul>
+<li><p>work in different clouds.</p></li>
+<li><p>first class support for teams products</p></li>
+<li><p>make sure users can easily make an <code>app.py</code> or <code>Dockerfile</code> to bring to a public or private cloud</p></li>
+<li><p>work well with other tools</p></li>
+<li><p>pandas and scikit learn uses the same dataframe data structures to model the data</p></li>
+<li><p>the data science landscape in python would look very different if these two tools did not have pieces that worked as a natural extension of each other.</p></li>
+<li><p>in the same way, you can use vetiver alone to do the tasks of versioning, deploying, and monitoring, but also add in other softwares if you would like to do more.</p></li>
+<li><p>composable with itself</p></li>
+</ul>
+<p>this is also making a straightforward point of entry to get started with the tool, but the ability to extend these modular functions to be quite complex.</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1664,8 +1620,18 @@ if (outputEl) {{
 <p>i can point to about 1000 different ways reproduciblility is important in machine learning, especially MLOps.</p>
 <p>however, i really want to highlight the value of open source tools here.</p>
 <p>we all saw that landscape a few slides ago, there’s a lot of options out there! MLOps is a happening field right now</p>
-<p>from a business perspective: open source is foreeeverrrr - free! - outlasts a company’s lifetime - outlasts your company’s subscription</p>
-<p>from a human perspective: open source is for everyonee - free! - equitable if you have an internet connection, you can build the skills, be part of an amazing technical community</p>
+<p>from a business perspective: open source is foreeeverrrr</p>
+<ul>
+<li>free!</li>
+<li>outlasts a company’s lifetime</li>
+<li>outlasts your company’s subscription</li>
+</ul>
+<p>from a human perspective: open source is for everyonee</p>
+<ul>
+<li>free!</li>
+<li>equitable</li>
+</ul>
+<p>if you have an internet connection, you can build the skills, be part of an amazing technical community</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1712,7 +1678,11 @@ if (outputEl) {{
 
 <img data-src="http://worrydream.com/ABriefRantOnTheFutureOfInteractionDesign/Images/Tool2.png" class="r-stretch quarto-figure-center"><aside class="notes">
 <p>your tool needs to “fit the person.” people need some sort of tool that is ergonomic, feels GOOD to use.</p>
-<p>vetiver is a tool made especially with data scientists in mind. it should feel like a natural extension of their workflow, using the model objects that they are creating in python or R. this is also making a straightforward point of entry to get started with the tool, but the ability to extend these modular functions to be quite complex.</p>
+<p>vetiver is a tool made especially with data scientists in mind.</p>
+<ul>
+<li>natural extension of their workflow, using the model objects that they are creating in python or R</li>
+</ul>
+<p>not all tools are built for data scientists, and that is a GOOD THING! find tools that were built with your persona in mind</p>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1769,23 +1739,14 @@ if (outputEl) {{
 <p><code>vetiver</code> can help with this for your R and Python models!</p>
 </div>
 </section>
-<section id="where-does-vetiver-work" class="slide level2">
-<h2>Where does vetiver work?</h2>
-<div>
-<ul>
-<li class="fragment"><p>RStudio’s pro products, like <a href="https://www.rstudio.com/products/connect/">Connect</a></p></li>
-<li class="fragment"><p>A public or private cloud, using Docker</p></li>
-</ul>
-</div>
-</section>
 <section id="learn-more" class="slide level2">
 <h2>Learn more</h2>
 <div>
 <ul>
 <li class="fragment"><p>Documentation at <a href="https://vetiver.rstudio.com/" class="uri">https://vetiver.rstudio.com/</a></p></li>
-<li class="fragment"><p>Talk from rstudio::conf() 2022 on <a href="https://www.rstudio.com/conference/2022/talks/demystifying-mlops/">Demystifying MLOps</a> 🍪</p></li>
 <li class="fragment"><p>Recent screencast on <a href="https://youtu.be/5s7fI4cl2C8">deploying a model with Docker</a></p></li>
 <li class="fragment"><p>End-to-end demos from RStudio Solutions Engineering in <a href="https://github.com/sol-eng/bike_predict">R</a> and <a href="https://github.com/sol-eng/bike_predict_python">Python</a></p></li>
+<li class="fragment"><p>These slides! Visit <a href="https://isabel.quarto.pub/crunch2022/">isabel.quarto.pub/crunch2022</a></p></li>
 </ul>
 </div>
 <div class="footer footer-default">
